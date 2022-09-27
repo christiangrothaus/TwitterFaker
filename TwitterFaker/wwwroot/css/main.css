@@ -1,0 +1,24 @@
+﻿:root {
+    --twitterblue: rgb(29, 155, 240);
+    --white: #ffffff;
+    --black: rgb(15, 20, 25);
+}
+
+html {
+    background-color: var(--white);
+}
+
+.navbar-brand {
+    color: var(--twitterblue);
+}
+
+.nav-link {
+    color: var(--black);
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
