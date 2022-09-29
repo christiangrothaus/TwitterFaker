@@ -1,7 +1,8 @@
 ﻿:root {
-    --twitterblue: rgb(29, 155, 240);
+    --twitterblue: rgb(26, 140, 216);
     --white: #ffffff;
     --black: rgb(15, 20, 25);
+    --hover: rgb(29, 155, 240)
 }
 
 html {
@@ -12,8 +13,28 @@ html {
     color: var(--twitterblue);
 }
 
+.navbar-brand:hover {
+    color: var(--hover);
+}
+
 .nav-link {
     color: var(--black);
+}
+
+.btn {
+    background-color: var(--twitterblue);
+    color: var(--white);
+    min-width: 10rem;
+}
+
+.btn:hover {
+    background-color: var(--hover) !important;
+    color: var(--white) !important;
+}
+
+.dropdown-toggle.show {
+    background-color: var(--twitterblue);
+    color: var(--white);
 }
 
 footer {
