@@ -23,6 +23,26 @@ namespace TwitterFaker.Controllers
             return View();
         }
 
+        public IActionResult Tweets()
+        {
+            return View();
+        }
+
+        public IActionResult Replies()
+        {
+            return View();
+        }
+
+        public IActionResult Blocks()
+        {
+            return View();
+        }
+
+        public IActionResult Suspensions()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

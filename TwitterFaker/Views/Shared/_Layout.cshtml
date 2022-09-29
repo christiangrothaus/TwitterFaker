@@ -11,27 +11,28 @@
     <header>
         <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">TwitterFaker</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TwitterFaker</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
-                        <a class="nav-link" href="#">Tweets</a>
-                        <a class="nav-link" href="#">Replies</a>
-                        <a class="nav-link" href="#">Blocks</a>
-                        <a class="nav-link" href="#">Suspensions</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Tweets">Tweets</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Replies">Replies</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Blocks">Blocks</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Suspensions">Suspensions</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- Replace with username -->
+                        User
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">My Fakes</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item text-danger fw-bold" href="#">Sign Out</a></li>
                     </ul>
                 </div>
             </div>
