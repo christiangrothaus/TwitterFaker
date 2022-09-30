@@ -24,10 +24,26 @@ html {
 .btn {
     background-color: var(--twitterblue);
     color: var(--white);
-    min-width: 10rem;
+    border-color: var(--twitterblue);
 }
 
 .btn:hover {
+    background-color: var(--hover) !important;
+    color: var(--white) !important;
+    border-color: var(--hover) !important;
+}
+
+.submission {
+    margin: .5rem 0 0 0;
+}
+
+.user-dropdown {
+    background-color: var(--twitterblue);
+    color: var(--white);
+    min-width: 10rem;
+}
+
+.user-dropdown:hover {
     background-color: var(--hover) !important;
     color: var(--white) !important;
 }
