@@ -3,4 +3,38 @@
 }
 
 <h1>Tweets</h1>
-
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputDisplayName">Display Name</label>
+            <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputUserName">Username</label>
+            <input type="text" class="form-control" id="inputUserName" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputBody">Body</label>
+        <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="inputDateTime">Date and Time</label>
+        <input type="datetime-local" class="form-control" id="inputDateTime">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputRetweets">Number of Retweets</label>
+            <input type="number" class="form-control" id="inputRetweets" placeholder="23">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputQuoteTweets">Number of Quote Tweets</label>
+            <input type="number" class="form-control" id="inputQuoteTweets" placeholder="82"/>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputLikes">Number of Likes</label>
+            <input type="number" class="form-control" id="inputLikes" placeholder="275">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary submission">Create</button>
+</form>
