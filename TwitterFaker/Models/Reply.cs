@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TwitterFaker.Models
 {
-    public class Tweet
+    public class Reply
     {
         // EF will instruct the database to automatically generate this value
-        public int TweetId { get; set; }
+        public int ReplyId { get; set; }
 
         public int UserId { get; set; }
 
