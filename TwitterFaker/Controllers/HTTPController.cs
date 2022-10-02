@@ -9,7 +9,7 @@ namespace TwitterFaker.Controllers
 {
     public class HTTPController : Controller
     {
-        //TODO add all functionality
+        //TODO move to service folder
         public async void GetPage()
         {
             HttpClient client = new HttpClient();
