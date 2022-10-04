@@ -29,6 +29,7 @@
                     <div class="form-group topBreakDiv">
                         <label for="inputPfp">Profile Picture</label>
                         <input type="file" class="form-control" id="inputPfp"/>
+                        <img class="hide" id="pfpPlaceHolder"/>
                     </div>
 
                     <div class="form-check form-switch topBreakDiv">
@@ -133,6 +134,7 @@ window.onload = function() {
     let verified = document.getElementById("inputVerified");
     let fontRadio = document.getElementById("fontRadio");
     let themeRadio = document.getElementById("themeRadio");
+    let pfpPlaceHolder = document.getElementById("pfpPlaceHolder");
     function updatePreview() {
         blocks.profile.displayName = displayName.value;
         blocks.profile.userName = userName.value;
@@ -140,8 +142,29 @@ window.onload = function() {
         blocks.theme =parseInt($("#themeRadio input:radio:checked").val())
         blocks.font=parseInt($("#fontRadio input:radio:checked").val())
         blocks.isBlock = $("#type input:radio:checked").val() == "block";
+        blocks.profile.profilePic = pfpPlaceHolder.src;
+    }
+
+    document.getElementById("inputPfp").addEventListener("change", readFile);
+
+
+    function readFile() {
+  
+        if (!this.files || !this.files[0]) return;
+    
+        const FR = new FileReader();
+    
+        FR.addEventListener("load", function(evt) {
+            document.querySelector("#pfpPlaceHolder").src = evt.target.result;
+        }); 
+    
+        FR.readAsDataURL(this.files[0]);
+  
     }
     document.getElementById("previewBtn").onclick = updatePreview;
+    
+
+    
 }
 </script>
 <template id="blockSuspendTemplate">
