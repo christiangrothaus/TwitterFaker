@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\preivews\" />
+    <Folder Include="wwwroot\fonts\" />
+  </ItemGroup>
+
 </Project>

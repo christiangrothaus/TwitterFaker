@@ -1,0 +1,89 @@
+.blockContainer{   
+    width: 495px;
+    height: 835px;
+    margin: 10px auto;
+}
+.blockContainer .profile-canopy{
+    background-color: var(--profileCanopy);
+    height: 39px;
+}
+.blockContainer .pfp-container {
+	bottom: -10px;
+	left: 15px;
+	position: relative;
+}
+.blockContainer .pfp {
+    height: 89px;
+    width: 89px;
+    background-color: var(--profileCanopy);
+    border:5px solid var(--secondary);
+    border-radius: 50%;
+    position: relative;
+}
+.blockContainer img.pfp-image {
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+}
+
+/*NAME BAR*/
+.blockContainer .namebar {
+	height: 166px;
+	background-color: var(--secondary);
+	padding: 75px 25px 25px 18px;
+}
+.blockContainer .name {
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 1.1;
+	overflow: hidden;
+    color: var(--name);
+}
+
+/*Verified*/
+.blockContainer .verified {
+	font-weight: normal;
+	vertical-align: text-top;
+	height: 25px;
+	width: 25px;
+}
+.blockContainer .verified svg {
+	position: relative;
+	/*vertical-align: baseline;*/
+}
+/*Username*/
+.blockContainer .username {
+	font-size: 16px;
+	margin-top: 8px;
+    color: var(--username);
+}
+/*Timeline*/
+.blockContainer .timeline{
+    background-color: var(--timeLine);
+}
+.blockContainer .tl-text-container {
+	padding: 50px;
+}
+.blockContainer .tl-main {
+	font-weight: bold;
+	font-size: 28px;
+	text-align: center;
+	line-height: 1.1;
+}
+.blockContainer .tl-main {
+	color: var(--name);
+}
+.blockContainer .tl-sub {
+	color: var(--username);
+    font-size: 17px;
+    margin-top: 22px;
+    text-align: center;
+    line-height: 25px;
+  
+}
+.blockContainer .fakelink{
+    color: #1da1f2;
+}

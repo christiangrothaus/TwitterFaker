@@ -1,0 +1,144 @@
+/*Font*/
+@font-face{
+    font-family: Chirp;
+    src: url(~/fonts/chirp.woff) format('woff')
+    
+}
+@font-face {
+    font-family: Inter;
+    src: url(~/fonts/inter.woff2)
+}
+.interFont, .interFont *{
+    font-family: Inter;
+}
+.chirp, .chirp *{
+    font-family: Chirp;
+}
+/*Hide*/
+.hide {
+    display: none !important;
+}
+/*Colors*/
+:root{
+    /*Tweet and Reply*/
+    --tweet-primary-color: #000000;
+    --tweet-secondary-color: #5b7083;
+    --tweet-tertiary-color: #c4cfd6;
+    --tweet-background-color:#ffffff;
+    /*All*/
+    --verified-color:#1da1f2;
+    /*Block*/
+    --profileCanopy:#ced5dc;
+    --verified-color:#1da1f2;
+    --secondary: #ffffff;
+    --name:#141619;
+    --username:#687684;
+    --timeLine:#e7ecf0;
+}
+.Dim, .Dim *{
+    /*Tweet and Reply*/
+    --tweet-primary-color: #ffffff;
+    --tweet-secondary-color: #8899a6;
+    --tweet-tertiary-color: #38444d;
+    --tweet-background-color:#15202b;
+    /*All*/
+    --verified-color:#ffffff;
+    /*Block*/
+    --profileCanopy:#415364;
+    --secondary: #171f2a;
+    --name:#ffffff;
+    --username:#8794a0;
+    --timeLine:#11161d;
+}
+.Dark, .Dark *{
+    /*Tweet and Reply*/
+    --tweet-primary-color: #d9d9d9;
+    --tweet-secondary-color: #6e767d;
+    --tweet-tertiary-color: #2f3336;
+    --tweet-background-color:#000000;
+    /*All*/
+    --verified-color:#d9d9d9;    
+    /*Block*/
+    --profileCanopy:#2f3235;
+    --secondary:#000000;
+    --verified-color:#d9d9d9;
+    --name:#d9d9d9;
+    --username:#7d8289;
+    --timeLine:#15171b;
+}
+
+.simulatedLink {
+    color: #1b95e0;
+}
+
+/*global*/
+.blockContainer, .blockContainer *,.blockContainer::after ,.blockContainer ::before,
+.tweetContainer, .tweetContainer *,.tweetContainer ::after,.tweetContainer ::before{
+	box-sizing: border-box;
+}
+
+.verified{
+    fill:var(--verified-color);
+    display: inline-block;
+}
+
+.css-1dbjc4n {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	flex-basis: auto;
+	flex-shrink: 0;
+	min-height: 0px;
+	min-width: 0px;
+	padding: 0px;
+	position: relative;
+	z-index: 0;
+	align-items: stretch;
+	border: 0px solid black;
+}
+
+
+
+/*PROFILE FIX ME LATER*/
+.profileContainer{
+    padding: 5px;
+    width: 250px;
+    background-color: var(--tweet-background-color);
+    border: 2px solid var(--tweet-tertiary-color);
+    border-radius: 5px;
+}
+.profileContainer .userName{
+    color: var(--tweet-secondary-color)
+}
+.profileContainer .displayName{
+    color: var(--tweet-primary-color)
+}
+.profileContainer .verified{
+    height: 1.25em;
+	width: 1.25em;
+    vertical-align: bottom;
+}
+.profileContainer .pfpContainer{
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--tweet-tertiary-color);
+    border-radius: 9999px;
+    display: inline-block;
+}
+.profileContainer img {
+    border-radius: 9999px;
+    height: 48px;
+    width: 48px;
+    /*border: 2px solid var(--profileCanopy);*/
+}
+.profileContainer .dropup svg{
+    width: 20px;
+    height: 20px;
+}
+.profileContainer .headerRight {
+    display: inline-block;
+    width: fit-content;
+    position: relative;
+    top: -8px;
+}

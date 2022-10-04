@@ -1,0 +1,199 @@
+.tweetContainer{   
+    background-color: var(--tweet-background-color);
+    border: 2px solid var(--tweet-tertiary-color);
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+
+.tweetContainer .tweetHeader {
+	margin-bottom: 4px;
+	display: flex;
+	flex-shrink: 0;
+	position: relative;
+	max-width: 100%;
+	flex-direction: row;
+}
+.tweetContainer .pfpContainer {
+	margin-right: 5px;
+	display: flex;
+	flex-basis: 48px;
+    flex: 0 0 48px;
+	align-items: center;
+	flex-direction: column;
+    width: 48px;
+}
+
+.tweetContainer .profileImg{
+    border-radius: 9999px;
+}
+.tweetContainer .headerRight{
+    height: 48px;
+    vertical-align: bottom;
+    
+    display: flex;
+    flex-basis: 0px;
+    flex: 1 1 auto;
+    flex-grow: 1;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.tweetContainer .userinfo {
+    width: fit-content;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-shrink: 1;
+    justify-content: center;
+  }
+  .tweetContainer .nameContainer, .tweetContainer .userName {
+    display: flex;
+    font-size: 15px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    flex-direction: row;
+    color:var(--tweet-secondary-color);
+  }
+  .tweetContainer .nameContainer .displayName {
+	font-weight: bold;
+	color: var(--tweet-primary-color);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.tweetContainer .nameContainer {
+    font-size: 15px;
+    overflow-wrap: break-word;
+}
+.tweetContainer .nameContainer span {
+    margin-top: 2px;
+	display: inline;
+	overflow-wrap: break-word;
+}
+
+/** Verified badge */
+.tweetContainer .verified {
+	fill: var(--verified-color);
+	margin-left: 2px;
+	min-width: 0px;
+	height: 1.25em;
+	width: 1.25em;
+	flex-shrink: 0;
+}
+
+.tweetContainer .verified {
+	color:var(--verified-color);
+}
+/*@Username*/
+.tweetContainer .userName {
+	color: var(--tweet-secondary-color);
+}
+.tweetContainer .nameContainer, .tweetContainer .userName {
+	display: flex;
+	font-size: 15px;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-wrap: break-word;
+	flex-direction: row;
+}
+
+/*Dropdown*/
+.tweetContainer .dropup svg{
+width: 20px;
+height: 20px;
+}
+
+/*Tweet*/
+.tweetContainer .tweetText {
+	margin-top: 10px;
+	font-size: 23px;
+	line-height: 1.3125;
+	overflow-wrap: break-word;
+	color: var(--tweet-primary-color);
+}
+/*Tweet image*/
+.tweetContainer .imgContainer {
+	margin-top: 6px;
+	border: 1px solid;
+	border-color: var(--tweet-tertiary-color);
+	border-radius: 14px;
+	overflow: hidden;
+}
+.tweetContainer .tweetImg{
+    width: 100%;
+    overflow: hidden;
+    max-width: 100%;
+    vertical-align: middle;
+}
+/*debunk*/
+.tweetContainer .debunk *{
+    color: #1b95e0;
+}
+.tweetContainer .debunk {
+	border-bottom: 1px solid var(--tweet-tertiary-color);
+	display: inline-flex;
+	align-items: center;
+	z-index: 0;
+	position: relative;
+	flex-basis: auto;
+	flex-shrink: 0;
+	overflow-wrap: break-word;
+	width: 100%;
+	padding: 10px 0 5px;
+}
+.tweetContainer .debunkIcon {
+	font-size: 26px;
+	width: 26px;
+	height: 26px;
+	align-self: flex-start;
+	margin-right: 7px;
+	line-height: 1;
+}
+.tweetContainer .debunkText {
+	font-size: 14px;
+	margin-top: -2px;
+	overflow: hidden;
+}
+/*Tweet Details*/
+.tweetContainer .tweetDetails {
+	margin: 15px 15px 15px 0;
+	font-size: 15px;
+	color: var(--tweet-secondary-color);
+	overflow-wrap: break-word;
+}
+/*Tweet Numbers*/
+.tweetContainer .tweetNumbers {
+	border-top: 1px solid var(--tweet-tertiary-color);
+	padding: 15px 0;
+	color: var(--tweet-secondary-color);
+}
+.tweetContainer .tweetNumbers b {
+	color: var(--tweet-primary-color);
+}
+/*Bottom Buttons*/
+.tweetContainer .buttonsContainer {
+	border-top: 1px solid var(--tweet-tertiary-color);
+	display: flex;
+	justify-content: space-around;
+	height: 49px;
+	flex-direction: row;
+}
+.tweetContainer .tweetButton {
+	display: inline-flex;
+	padding: 0 0.85rem;
+	white-space: nowrap;
+	justify-content: center;
+	align-items: center;
+	color: var(--tweet-secondary-color);
+}
+.tweetContainer .tweetButton svg {
+	height: 1.5em;
+	width: 1.5em;
+	fill: currentColor;
+}
