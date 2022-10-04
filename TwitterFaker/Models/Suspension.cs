@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Buffers.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace TwitterFaker.Models
 {
@@ -11,6 +12,14 @@ namespace TwitterFaker.Models
 
         [Required(ErrorMessage = "Please enter a username.")]
         public string UserName { get; set; }
+
+        public string DisplayName { get; set; }
+
+        public string ProfilePicture { get; set; }
+
+        public string Theme { get; set; }
+
+        public string Font { get; set; } 
 
         public bool Verified { get; set; }
     }
