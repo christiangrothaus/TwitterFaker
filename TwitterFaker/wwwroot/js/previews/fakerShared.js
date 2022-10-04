@@ -67,7 +67,8 @@ class Profile {
             pe.userNameElement.innerHTML = this.#userName;
         }
 
-        pe.profilePicElement.src = this.#profilePic == null ? defaultPfp : this.#profilePic;
+        pe.profilePicElement.src = (this.#profilePic == null)? defaultPfp : this.#profilePic;
+
         if (this.#verified)
             pe.verifiedElement.classList.remove("hide");
         else
@@ -94,6 +95,9 @@ class Profile {
         return this.#profilePic;
     }
     set profilePic(newprofilePic) {
+        if (newprofilePic == "") {
+            newprofilePic = null;
+        }
         this.#profilePic = newprofilePic;
         this.updateUI();
     }

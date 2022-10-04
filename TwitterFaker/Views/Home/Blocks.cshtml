@@ -1,15 +1,14 @@
 ﻿
 @{
-    ViewData["Title"] = "Blocks";
+    ViewData["Title"] = "Blocks/Suspensions";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Blocks/Suspensions</h1>
-<link hhref=""/>
 <script src="~/js/previews/fakerShared.js"></script>
 <script src="~/js/previews/BlockSuspend.js"></script>
-<link href="~/css/global.css" rel="stylesheet" type="text/css"/>
-<link href="~/css/block.css" rel="stylesheet" type="text/css"/>
+<link href="~/css/preivews/global.css" rel="stylesheet" type="text/css"/>
+<link href="~/css/preivews/block.css" rel="stylesheet" type="text/css"/>
 <div class="container">
     <div class="row">
         <div class="col-sm">
@@ -26,10 +25,13 @@
                         <input type="text" class="form-control" id="inputUserName" placeholder="Username">
                     </div>
                     
-                    <div class="form-group topBreakDiv">
-                        <label for="inputPfp">Profile Picture</label>
-                        <input type="file" class="form-control" id="inputPfp"/>
-                        <img class="hide" id="pfpPlaceHolder"/>
+                     <div class="container">
+                        <div class="topBreakDiv row">
+                            <label for="inputPfp">Profile Picture</label>
+                            <input type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
+                            <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                            <img class="hide" id="pfpPlaceHolder"/>
+                        </div>
                     </div>
 
                     <div class="form-check form-switch topBreakDiv">
@@ -45,7 +47,6 @@
                                   <label class="form-check-label" for="blockType">Block</label>
                                 </div>
                                 <div class="form-check form-check">
-                                    <span>Type</span>
                                   <input class="form-check-input" type="radio" name="type" id="suspendType" value="suspend">
                                   <label class="form-check-label" for="suspendType">Suspend</label>
                                 </div>
@@ -135,6 +136,7 @@ window.onload = function() {
     let fontRadio = document.getElementById("fontRadio");
     let themeRadio = document.getElementById("themeRadio");
     let pfpPlaceHolder = document.getElementById("pfpPlaceHolder");
+    let inputPfp = document.getElementById("inputPfp");
     function updatePreview() {
         blocks.profile.displayName = displayName.value;
         blocks.profile.userName = userName.value;
@@ -143,10 +145,14 @@ window.onload = function() {
         blocks.font=parseInt($("#fontRadio input:radio:checked").val())
         blocks.isBlock = $("#type input:radio:checked").val() == "block";
         blocks.profile.profilePic = pfpPlaceHolder.src;
+        console.log(pfpPlaceHolder.src);
     }
 
-    document.getElementById("inputPfp").addEventListener("change", readFile);
-
+    inputPfp.addEventListener("change", readFile);
+    document.getElementById("fileClearBtn").onclick = function() {
+        inputPfp.value = null;
+        pfpPlaceHolder.removeAttribute("src");
+    }
 
     function readFile() {
   

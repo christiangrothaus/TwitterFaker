@@ -64,3 +64,14 @@ footer {
 .topBreakDiv {
     margin-top: 10px;
 }
+.file-input-clear {
+    border-radius: 5px 0 0 5px;
+}
+.input-clear-btn {
+    background-color: #e9ecef;
+    border: 1px solid #dadee3;
+    border-radius: 0 5px 5px 0px;
+}
+.input-clear-btn:hover {
+    background-color: #dde0e3 !important;
+}

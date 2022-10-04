@@ -1,40 +1,69 @@
 ﻿@{
     ViewData["Title"] = "Tweets";
 }
-
+<script src="~/js/previews/fakerShared.js"></script>
+<script src="~/js/previews/TextImageDateTimeStats.js"></script>
+<script src="~/js/previews/Tweet.js"></script>
+<link href="~/css/preivews/global.css" rel="stylesheet" type="text/css"/>
+<link href="~/css/preivews/tweet.css" rel="stylesheet" type="text/css"/>
 <h1>Tweets</h1>
-<form>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputDisplayName">Display Name</label>
-            <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <form>
+                <div class="form-row">
+                    <div class="form-group topBreakDiv">
+                        <label for="inputDisplayName">Display Name</label>
+                        <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
+                    </div>
+                    
+                    <div class="form-group topBreakDiv">
+                        <label for="inputUserName">Username</label>
+                        <input type="text" class="form-control" id="inputUserName" placeholder="Username">
+                    </div>
+                    <div class="container">
+                        <div class="topBreakDiv row">
+                            <label for="inputPfp">Profile Picture</label>
+                            <input type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
+                            <button type="button" class="btn col-sm-1 input-clear-btn">X</button>
+                            <img class="hide" id="pfpPlaceHolder"/>
+                        </div>
+                    </div>
+                     <div class="form-check form-switch topBreakDiv">
+                        <input type="checkbox" class="form-check-input" id="inputVerified"/>
+                        <label for="inputVerified" class="form-check-label">Verified</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputBody">Body</label>
+                        <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDateTime">Date and Time</label>
+                        <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime">
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="form-group col-md" style="padding-left:0 !important">
+                                <label for="inputRetweets">Retweets</label>
+                                <input type="number" class="form-control" id="inputRetweets" placeholder="0">
+                            </div>
+                            <div class="form-group col-md">
+                                <label for="inputQuoteTweets">Quote Tweets</label>
+                                <input type="number" class="form-control" id="inputQuoteTweets" placeholder="0"/>
+                            </div>
+                            <div class="form-group col-md" style="padding-right:0 !important">
+                                <label for="inputLikes">Likes</label>
+                                <input type="number" class="form-control" id="inputLikes" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="blue-btn btn btn-primary submission">Create</button>
+            </form>
         </div>
-        <div class="form-group col-md-6">
-            <label for="inputUserName">Username</label>
-            <input type="text" class="form-control" id="inputUserName" placeholder="Password">
-        </div>
+        <div class="col-sm" id="preview">
+                
+            </div>
     </div>
-    <div class="form-group">
-        <label for="inputBody">Body</label>
-        <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="inputDateTime">Date and Time</label>
-        <input type="datetime-local" class="form-control" id="inputDateTime">
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputRetweets">Number of Retweets</label>
-            <input type="number" class="form-control" id="inputRetweets" placeholder="23">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputQuoteTweets">Number of Quote Tweets</label>
-            <input type="number" class="form-control" id="inputQuoteTweets" placeholder="82"/>
-        </div>
-        <div class="form-group col-md-2">
-            <label for="inputLikes">Number of Likes</label>
-            <input type="number" class="form-control" id="inputLikes" placeholder="275">
-        </div>
-    </div>
-    <button type="submit" class="blue-btn btn btn-primary submission">Create</button>
-</form>
+</div>
+
