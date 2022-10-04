@@ -1,7 +1,7 @@
 ﻿@{
 }
 <div class="d-flex justify-content-center">
-    <form class="d-flex flex-column p-3 w-25" asp-action="SignIn" asp-controller="User" method="post">
+    <form class="d-flex flex-column p-3 w-25" asp-action="RegisterUser" asp-controller="User" method="post">
         <!-- Email input -->
         <div class="form-outline mb-4">
             <label for="usernameInput">UserName</label>
@@ -15,11 +15,11 @@
         </div>
       
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4 w-75 align-self-center">Sign in</button>
+        <button type="submit" class="btn btn-primary btn-block mb-4 w-75 align-self-center"> Create Account </button>
 
         <!-- Register buttons -->
         <div class="text-center">
-            <p>Not a member? <a asp-action="Register" asp-controller="User">Register</a></p>     
+            <p>Already a member? <a asp-action="Login" asp-controller="User">Login</a></p>     
         </div>
     </form>
 </div>

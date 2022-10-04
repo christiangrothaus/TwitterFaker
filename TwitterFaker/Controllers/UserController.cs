@@ -1,22 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using TwitterFaker.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 
 namespace TwitterFaker.Controllers
 {
     public class UserController : Controller
     {
-        private HttpContext _httpContext;
+        private readonly string homePath = "~/Views/Home/Index.cshtml";
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILogger<LoginModel> _logger;
 
-        public void setContext(HttpContext httpContext)
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
         {
-            this._httpContext = httpContext;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(homePath);
         }
 
         public IActionResult Login()
@@ -24,27 +31,49 @@ namespace TwitterFaker.Controllers
             return View();
         }
 
-        public string GetCookie(string key)
+        public IActionResult Register()
         {
-          return _httpContext.Request.Cookies[key];
+            return View();
         }
 
-        public void SetCookie(string key, string value, int? expireTime)
+        [HttpPost]
+        public async Task<IActionResult> SignIn(string username, string password)
         {
-            CookieOptions option = new CookieOptions();
-            option.IsEssential = true;
-
-            if (expireTime.HasValue)
-                option.Expires = DateTime.Now.AddMinutes(expireTime.Value);
+            var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
+            if (result.Succeeded)
+            {
+                var user = await _userManager.FindByNameAsync(username);
+                return View(homePath);
+            }
             else
-                option.Expires = DateTime.Now.AddYears(1);
-
-            _httpContext.Response.Cookies.Append(key, value, option);
+            {
+                ModelState.AddModelError(string.Empty, "Invalid Username or Password");
+            }
+            return View("Login");
         }
 
-        public void RemoveCookie(string key)
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(string username, string password)
         {
-            _httpContext.Response.Cookies.Delete(key);
+            var user = new IdentityUser { UserName = username };
+            var result = await _userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User created a new account with password.");
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return View(homePath);
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View("Index");
+        }
+
+        public IActionResult Logout()
+        {
+            return View(homePath);        
         }
     }
 }
