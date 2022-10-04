@@ -1,18 +1,4 @@
-﻿@using TwitterFaker.Controllers
-@model User
-@{
-    bool signedIn;
-    User user = new User();
-    UserController userController = new UserController();
-    userController.setContext(this.ViewContext.HttpContext);
-
-    if (userController.GetCookie("UserId") == null)
-    {
-        signedIn = false;
-    } else {
-        signedIn = true;
-        user.UserId = Int32.Parse(userController.GetCookie("UserId"));
-    }
+﻿@{
 
 }
 <!DOCTYPE html>
@@ -42,10 +28,10 @@
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                     </div>
                 </div>
-                @if (signedIn) {
-                <div class="dropdown">
+                <a class="btn" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                <!-- If not signed in show below instead-->
+                <!--<div class="dropdown">
                     <button class="btn dropdown-toggle user-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <!-- Replace with username -->
                         User
                     </button>
                     <ul class="dropdown-menu">
@@ -54,10 +40,7 @@
                         <li><a class="dropdown-item text-danger fw-bold" href="#">Sign Out</a></li>
                     </ul>
                 </div>
-                } else {
-                    <a class="btn" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                }
-            </div>
+            </div>-->
         </nav>
     </header>
     <div class="container">
