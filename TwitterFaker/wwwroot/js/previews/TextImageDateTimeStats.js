@@ -56,6 +56,7 @@
                     statElement.innerHTML = "";
             }
         }
+        e.statsElements[0].parentElement.style.display = (this.#stats.find(e => e > 0) == undefined) ? "none" : "";
     }
     static addPrefix(n) {
         let places = [[1e0, ""], [1e3, 'K'], [1e6, 'M'], [1e9, 'B'], [1e12, 'T']]
@@ -75,6 +76,8 @@
 
     get image() { return this.#image; }
     set image(newVal) {
+        if (newVal == "")
+            newVal = null;
         this.#image = newVal;
         this.#updateUIStat();
     }

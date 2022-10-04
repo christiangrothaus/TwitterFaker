@@ -5,7 +5,7 @@
     --hover: rgb(29, 155, 240)
 }
 
-html {
+body {
     background-color: var(--white);
 }
 
@@ -62,16 +62,21 @@ footer {
 
 
 .topBreakDiv {
-    margin-top: 10px;
+    margin-top: 2.5px;
 }
 .file-input-clear {
     border-radius: 5px 0 0 5px;
 }
 .input-clear-btn {
     background-color: #e9ecef;
-    border: 1px solid #dadee3;
+    border-right: 1px solid #dadee3;
+    border-top: 1px solid #dadee3;
+    border-bottom: 1px solid #dadee3;
     border-radius: 0 5px 5px 0px;
 }
 .input-clear-btn:hover {
     background-color: #dde0e3 !important;
+}
+.h1-0-margin {
+    margin: 0 0 0 0 !important;
 }

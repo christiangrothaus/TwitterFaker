@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewData["Title"] = "Blocks/Suspensions";
+    ViewData["Title"] = "Block/Suspension";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Blocks/Suspensions</h1>
+<h1>Block/Suspension</h1>
 <script src="~/js/previews/fakerShared.js"></script>
 <script src="~/js/previews/BlockSuspend.js"></script>
 <link href="~/css/preivews/global.css" rel="stylesheet" type="text/css"/>
@@ -15,7 +15,7 @@
             <form>
                 <div class="form-row col-sm">
                    
-                    <div class="form-group topBreakDiv">
+                    <div class="form-group">
                         <label for="inputDisplayName">Display Name</label>
                         <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
                     </div>
@@ -27,7 +27,7 @@
                     
                      <div class="container">
                         <div class="topBreakDiv row">
-                            <label for="inputPfp">Profile Picture</label>
+                            <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
                             <input type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
                             <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
                             <img class="hide" id="pfpPlaceHolder"/>
@@ -168,9 +168,6 @@ window.onload = function() {
   
     }
     document.getElementById("previewBtn").onclick = updatePreview;
-    
-
-    
 }
 </script>
 <template id="blockSuspendTemplate">
