@@ -21,13 +21,13 @@ html {
     color: var(--black);
 }
 
-.btn {
+.blue-btn {
     background-color: var(--twitterblue);
     color: var(--white);
     border-color: var(--twitterblue);
 }
 
-.btn:hover {
+.blue-btn:hover {
     background-color: var(--hover) !important;
     color: var(--white) !important;
     border-color: var(--hover) !important;
