@@ -47,28 +47,35 @@ namespace TwitterFaker.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid Username or Password");
+                ModelState.AddModelError("InvalidEntry", "Invalid Username or Password");
             }
             return View("Login");
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser(string username, string password)
+        public async Task<IActionResult> RegisterUser(string username, string password, string passwordConfirmation)
         {
-            var user = new IdentityUser { UserName = username };
-            var result = await _userManager.CreateAsync(user, password);
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("User created a new account with password.");
+            if (password == passwordConfirmation)
+            { 
+                var user = new IdentityUser { UserName = username };
+                var result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
 
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return View(homePath);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return View(homePath);
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
             }
-            foreach (var error in result.Errors)
+            else
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                ModelState.AddModelError("PasswordMatch", "Passwords did not match");
             }
-            return View("Index");
+            return View("Register");
         }
 
         public IActionResult Logout()
