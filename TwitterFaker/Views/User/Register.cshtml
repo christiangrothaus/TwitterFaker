@@ -1,20 +1,21 @@
 ﻿@{
+    ViewData["Title"] = "Register";
 }
 <div class="d-flex justify-content-center">
     <form class="d-flex flex-column p-3 w-25" asp-action="RegisterUser" asp-controller="User" method="post">
         <!-- Email input -->
         <div class="form-outline mb-4">
-            <label for="usernameInput">UserName</label>
-            <input name="username" type="text" id="usernameInput" class="form-control" placeholder="UserName" />
+            <label for="usernameInput">Username</label>
+            <input name="username" type="text" id="usernameInput" class="form-control" placeholder="Username" />
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-            <label for="passwordInput">Password</label>
+            <label for="passwordInput">Password<span class="">&#128712;</span></label>
             <input name="password" type="password" id="passwordInput" class="form-control" placeholder="Password"/>  
         </div>
         <div class="form-outline mb-4">
-            <label for="passwordInputConfirmation">Reenter Password</label>
+            <label for="passwordInputConfirmation">Re-enter Password</label>
             <input name="passwordConfirmation" type="password" id="passwordInputConfirmation" class="form-control" placeholder="Password" />
         </div>
       
