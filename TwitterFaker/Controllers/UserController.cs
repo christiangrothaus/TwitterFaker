@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using TwitterFaker.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace TwitterFaker.Controllers
 {
@@ -13,17 +14,14 @@ namespace TwitterFaker.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View(homePath);
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Login()
@@ -42,8 +40,7 @@ namespace TwitterFaker.Controllers
             var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByNameAsync(username);
-                return View(homePath);
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -56,15 +53,15 @@ namespace TwitterFaker.Controllers
         public async Task<IActionResult> RegisterUser(string username, string password, string passwordConfirmation)
         {
             if (password == passwordConfirmation)
-            { 
-                var user = new IdentityUser { UserName = username };
-                var result = await _userManager.CreateAsync(user, password);
+            {
+                var newUser = new IdentityUser { UserName = username, Email = username };
+                var result = await _userManager.CreateAsync(newUser, password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return View(homePath);
+                    await _signInManager.PasswordSignInAsync(username, password, true, false);
+                    return RedirectToAction("Index", "Home");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -78,9 +75,10 @@ namespace TwitterFaker.Controllers
             return View("Register");
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            return View(homePath);        
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿@{
-
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -27,18 +30,22 @@
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                     </div>
                 </div>
-                <a class="btn" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                <!-- If not signed in show below instead-->
-                <!--<div class="dropdown">
+                @if (user == null) {
+                <a class="btn blue-btn" asp-area="" asp-controller="User" asp-action="Login">Login</a>            
+                }
+                else
+                {
+                <div class="dropdown">
                     <button class="btn dropdown-toggle user-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        User
+                        @user.UserName
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">My Fakes</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item text-danger fw-bold" href="#">Sign Out</a></li>
+                        <li><a class="dropdown-item text-danger fw-bold" asp-area="" asp-controller="User" asp-action="Logout">Sign Out</a></li>
                     </ul>
-                </div>-->
+                </div>
+                }
             </div>
         </nav>
     </header>
