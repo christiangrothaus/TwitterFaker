@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
+    IdentityUser user = await UserManager.GetUserAsync(User);
 }
+<div class="d-flex justify-content-center">
+    <form class="d-flex flex-column p-3 w-25" asp-action="DeleteUser" asp-controller="User" method="post">
+        <!-- Username confirmation -->
+        <div class="form-outline mb-4">
+            <label for="userInput">Enter Username to Confirm Deletion</label>
+            <input name="username" type="text" id="userInput" class="form-control" placeholder="@user.UserName" />
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-danger btn-block mb-4 w-75 align-self-center">Delete Account</button>
+    </form>
+</div>

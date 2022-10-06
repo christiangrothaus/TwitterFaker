@@ -10,7 +10,6 @@ namespace TwitterFaker.Controllers
 {
     public class UserController : Controller
     {
-        private readonly string homePath = "~/Views/Home/Index.cshtml";
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
@@ -30,6 +29,11 @@ namespace TwitterFaker.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
         {
             return View();
         }
@@ -54,7 +58,7 @@ namespace TwitterFaker.Controllers
         {
             if (password == passwordConfirmation)
             {
-                var newUser = new IdentityUser { UserName = username, Email = username };
+                IdentityUser newUser = new IdentityUser { UserName = username, Email = username };
                 var result = await _userManager.CreateAsync(newUser, password);
                 if (result.Succeeded)
                 {
@@ -79,6 +83,30 @@ namespace TwitterFaker.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string username)
+        {
+            IdentityUser user = await _userManager.GetUserAsync(User);
+            if (username == user.UserName)
+            {
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("UsernameMatch", "Username did not match current user");
+                return View("Settings");
+            }
+            return View("Settings");
         }
     }
 }
