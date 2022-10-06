@@ -33,6 +33,15 @@ namespace TwitterFaker
             services.AddDbContext<TwitterFakerContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("TwitterFakerContext")));
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                    options.SlidingExpiration = true;
+                    options.AccessDeniedPath = "/Forbidden/";
+                    options.LoginPath = "/User/Login";
+                });
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<TwitterFakerContext>();
 
@@ -56,15 +65,6 @@ namespace TwitterFaker
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-                    options.SlidingExpiration = true;
-                    options.AccessDeniedPath = "/Forbidden/";
-                    options.LoginPath = "/User/Login";
-                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
