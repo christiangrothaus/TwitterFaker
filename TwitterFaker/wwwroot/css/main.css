@@ -10,6 +10,15 @@ body {
     padding-bottom: 3%;
 }
 
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0rem;
+    left: 0;
+    height: 3%;
+    background: var(--white);
+}
+
 .navbar-brand {
     color: var(--twitterblue);
 }
@@ -52,15 +61,6 @@ body {
 .dropdown-toggle.show {
     background-color: var(--twitterblue);
     color: var(--white);
-}
-
-footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0rem;
-    left: 0;
-    height: 3%;
-    background: var(--white);
 }
 
 .topBreakDiv {
