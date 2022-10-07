@@ -11,7 +11,17 @@ namespace TwitterFaker.Models
         { }
 
         // Table
-        public DbSet<IdentityUser> AspNetUsers { get; set; }
+        public DbSet<IdentityUser> AspNetUsers { get; }
+
+        public DbSet<Block> Blocks { get; set; }
+
+        public DbSet<Reply> Replys { get; set; }
+
+        public DbSet<ReplyChain> ReplyChains { get; set; }
+
+        public DbSet<Suspension> Suspensions { get; set; }
+
+        public DbSet<Tweet> Tweets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
