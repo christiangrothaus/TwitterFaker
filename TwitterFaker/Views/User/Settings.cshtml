@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Settings";
     IdentityUser user = await UserManager.GetUserAsync(User);
+    var errors = this.ViewData.ModelState.Keys.SelectMany(key => this.ViewData.ModelState[key].Errors);
 }
 <div class="d-flex justify-content-center">
     <form class="d-flex flex-column p-3 w-25" asp-action="DeleteUser" asp-controller="User" method="post">
@@ -17,3 +19,15 @@
         <button type="submit" class="btn btn-danger btn-block mb-4 w-75 align-self-center">Delete Account</button>
     </form>
 </div>
+@if (errors.Count() > 0)
+{
+<div class="d-flex justify-content-center">
+    <ul class="list-group w-auto">
+        <lh class="list-group-item list-group-item-danger">Error</lh>
+        @foreach(ModelError error in errors)
+        {
+        <li class="list-group-item">@error.ErrorMessage</li>
+        }
+    </ul>
+</div>
+}

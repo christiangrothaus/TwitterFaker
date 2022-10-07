@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@{
     ViewData["Title"] = "Login";
+    var errors = this.ViewData.ModelState.Keys.SelectMany(key => this.ViewData.ModelState[key].Errors);
 }
 <div class="d-flex justify-content-center">
     <form class="d-flex flex-column p-3 w-25" asp-action="SignIn" asp-controller="User" method="post">
@@ -24,3 +26,15 @@
         </div>
     </form>
 </div>
+@if (errors.Count() > 0)
+{
+    <div class="d-flex justify-content-center">
+        <ul class="list-group w-auto">
+            <lh class="list-group-item list-group-item-danger">Error</lh>
+            @foreach (ModelError error in errors)
+            {
+                <li class="list-group-item">@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
