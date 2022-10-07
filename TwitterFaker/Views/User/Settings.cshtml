@@ -2,6 +2,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
+    ViewData["Title"] = "Settings";
     IdentityUser user = await UserManager.GetUserAsync(User);
 }
 <div class="d-flex justify-content-center">
