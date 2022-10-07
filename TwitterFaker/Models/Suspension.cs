@@ -8,18 +8,19 @@ namespace TwitterFaker.Models
         // EF will instruct the database to automatically generate this value
         public int SuspensionId { get; set; }
 
+        //Will be obtained from the signed in user 
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Please enter a username.")]
         public string UserName { get; set; }
-
+        [Required(ErrorMessage = "Please enter a display name.")]
         public string DisplayName { get; set; }
 
         public string ProfilePicture { get; set; }
 
-        public string Theme { get; set; }
+        public int Theme { get; set; }
 
-        public string Font { get; set; } 
+        public int Font { get; set; } 
 
         public bool Verified { get; set; }
     }

@@ -8,10 +8,13 @@ namespace TwitterFaker.Models
         // EF will instruct the database to automatically generate this value
         public int ReplyId { get; set; }
 
-        public int UserId { get; set; }
-
         [Required(ErrorMessage = "Please enter a username.")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Please enter a display name.")]
+        public string DisplayName { get; set; }
+
+        public string ProfilePicture { get; set; }
 
         [Required(ErrorMessage = "Please enter a body.")]
         public string Body { get; set; }
@@ -19,12 +22,15 @@ namespace TwitterFaker.Models
         [Required(ErrorMessage = "Please enter a date and time.")]
         public string DateTime { get; set; }
 
+        [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number of retweets.")]
         public int Retweets { get; set; }
 
+        [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number of quote tweets.")]
         public int QuoteTweets { get; set; }
 
+        [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number of likes.")]
         public int Likes { get; set; }
 
