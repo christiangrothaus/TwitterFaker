@@ -13,14 +13,12 @@ namespace TwitterFaker.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Login()
@@ -48,7 +46,7 @@ namespace TwitterFaker.Controllers
             }
             else
             {
-                ModelState.AddModelError("InvalidEntry", "Invalid Username or Password");
+                ModelState.AddModelError("InvalidEntry", "Invalid username or password.");
             }
             return View("Login");
         }
@@ -74,7 +72,7 @@ namespace TwitterFaker.Controllers
             }
             else
             {
-                ModelState.AddModelError("PasswordMatch", "Passwords did not match");
+                ModelState.AddModelError("PasswordMatch", "Passwords did not match.");
             }
             return View("Register");
         }
@@ -103,7 +101,7 @@ namespace TwitterFaker.Controllers
             }
             else
             {
-                ModelState.AddModelError("UsernameMatch", "Username did not match current user");
+                ModelState.AddModelError("UsernameMatch", "Username did not match current user.");
                 return View("Settings");
             }
             return View("Settings");
