@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 
 namespace TwitterFaker.Controllers
 {
