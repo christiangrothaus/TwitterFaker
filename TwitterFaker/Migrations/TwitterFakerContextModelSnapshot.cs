@@ -302,7 +302,7 @@ namespace TwitterFaker.Migrations
 
                     b.HasIndex("ReplyChainId");
 
-                    b.ToTable("Replys");
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("TwitterFaker.Models.ReplyChain", b =>

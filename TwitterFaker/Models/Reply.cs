@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TwitterFaker.Models
 {
+    [Table("Replies")]
     public class Reply
     {
         // EF will instruct the database to automatically generate this value

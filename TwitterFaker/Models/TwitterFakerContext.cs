@@ -38,7 +38,7 @@ namespace TwitterFaker.Models
                 .HasOne(r => r.ReplyChain)
                 .WithMany(c => c.replies)
                 .IsRequired();
-
+                
             //ReplyChains
             modelBuilder.Entity<ReplyChain>()
                 .HasMany(r => r.replies)

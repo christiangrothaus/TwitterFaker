@@ -10,7 +10,7 @@ using TwitterFaker.Models;
 namespace TwitterFaker.Migrations
 {
     [DbContext(typeof(TwitterFakerContext))]
-    [Migration("20221008015639_Objects")]
+    [Migration("20221008020539_Objects")]
     partial class Objects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -304,7 +304,7 @@ namespace TwitterFaker.Migrations
 
                     b.HasIndex("ReplyChainId");
 
-                    b.ToTable("Replys");
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("TwitterFaker.Models.ReplyChain", b =>

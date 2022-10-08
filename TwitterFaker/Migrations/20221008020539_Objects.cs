@@ -111,7 +111,7 @@ namespace TwitterFaker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Replys",
+                name: "Replies",
                 columns: table => new
                 {
                     ReplyId = table.Column<int>(nullable: false)
@@ -129,9 +129,9 @@ namespace TwitterFaker.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Replys", x => x.ReplyId);
+                    table.PrimaryKey("PK_Replies", x => x.ReplyId);
                     table.ForeignKey(
-                        name: "FK_Replys_ReplyChains_ReplyChainId",
+                        name: "FK_Replies_ReplyChains_ReplyChainId",
                         column: x => x.ReplyChainId,
                         principalTable: "ReplyChains",
                         principalColumn: "ReplyChainId",
@@ -144,14 +144,14 @@ namespace TwitterFaker.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Replies_ReplyChainId",
+                table: "Replies",
+                column: "ReplyChainId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ReplyChains_UserId",
                 table: "ReplyChains",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Replys_ReplyChainId",
-                table: "Replys",
-                column: "ReplyChainId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suspensions_UserId",
@@ -170,7 +170,7 @@ namespace TwitterFaker.Migrations
                 name: "Blocks");
 
             migrationBuilder.DropTable(
-                name: "Replys");
+                name: "Replies");
 
             migrationBuilder.DropTable(
                 name: "Suspensions");
