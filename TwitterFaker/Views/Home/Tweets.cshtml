@@ -1,5 +1,10 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@model Tweet
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
     ViewData["Title"] = "Tweet";
+    IdentityUser user = await UserManager.GetUserAsync(User);
 }
 <script src="~/js/previews/fakerShared.js"></script>
 <script src="~/js/previews/TextImageDateTimeStats.js"></script>
@@ -10,70 +15,70 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <form>
+            <form enctype="multipart/form-data" asp-action="SaveTweet" asp-controller="Home" method="post">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="inputDisplayName">Display Name</label>
-                        <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
+                        <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name" asp-for="DisplayName">
                     </div>
                     
                     <div class="form-group topBreakDiv">
                         <label for="inputUserName">Username</label>
-                        <input type="text" class="form-control" id="inputUserName" placeholder="Username">
+                        <input type="text" class="form-control" id="inputUserName" placeholder="Username" asp-for="UserName">
                     </div>
 
                     <div class="container">
                         <div class="topBreakDiv row">
                             <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
-                            <input type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
+                            <input name="profilePicture" type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
                             <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
                             <img class="hide" id="pfpPlaceHolder"/>
                         </div>
                     </div>
                      <div class="form-check form-switch topBreakDiv">
-                        <input type="checkbox" class="form-check-input" id="inputVerified"/>
+                        <input type="checkbox" class="form-check-input" id="inputVerified" asp-for="Verified"/>
                         <label for="inputVerified" class="form-check-label">Verified</label>
                     </div>
                     <div class="form-group">
                         <label for="inputBody">Body</label>
-                        <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
+                        <textarea class="form-control" rows="3" cols="83" id="inputBody" asp-for="Body"></textarea>
                     </div>
 
                     <div class="container topBreakDiv">
                         <div class="row">
                             <label for="inputImage" style="padding-left: 0 !important;">Image</label>
-                            <input type="file" class="form-control col-sm file-input-clear" id="inputImage"/>
+                            <input name="picture" type="file" class="form-control col-sm file-input-clear" id="inputImage"/>
                             <button type="button" class="btn col-sm-1 input-clear-btn" id="imageClearBtn">X</button>
                             <img class="hide" id="imagePlaceHolder"/>
                         </div>
                     </div>
                     <div class="form-group topBreakDiv">
                         <label for="inputFactCheck">Fact Check</label>
-                        <input type="text" class="form-control" id="inputFactCheck" placeholder="Fact Checker">
+                        <input type="text" class="form-control" id="inputFactCheck" placeholder="Fact Checker" asp-for="FactCheck">
                     </div>
 
                     <div class="form-group topBreakDiv">
                         <label for="inputClient">Client</label>
-                        <input type="text" class="form-control" id="inputClient" placeholder="Twitter Client">
+                        <input type="text" class="form-control" id="inputClient" placeholder="Twitter Client" asp-for="Client">
                     </div>
 
                     <div class="form-group topBreakDiv">
                         <label for="inputDateTime">Date and Time</label>
-                        <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime">
+                        <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime" asp-for="DateTime">
                     </div>
                     <div class="container topBreakDiv">
                         <div class="row">
                             <div class="form-group col-md" style="padding-left:0 !important">
                                 <label for="inputRetweets">Retweets</label>
-                                <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0">
+                                <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0" asp-for="Retweets">
                             </div>
                             <div class="form-group col-md">
                                 <label for="inputQuoteTweets">Quote Tweets</label>
-                                <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0"/>
+                                <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0" asp-for="QuoteTweets"/>
                             </div>
                             <div class="form-group col-md" style="padding-right:0 !important">
                                 <label for="inputLikes">Likes</label>
-                                <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0">
+                                <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0" asp-for="Likes">
                             </div>
                         </div>
                     </div>
@@ -119,7 +124,7 @@
                                 </div>
 
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2" asp-for="Font">
                                   <label class="form-check-label" for="chirpFont">
                                     Chirp
                                   </label>
