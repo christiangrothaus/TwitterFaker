@@ -6,7 +6,10 @@ namespace TwitterFaker.Models
     public class Reply
     {
         // EF will instruct the database to automatically generate this value
+        [Key]
         public int ReplyId { get; set; }
+
+        public ReplyChain ReplyChain { get; set; }
 
         [Required(ErrorMessage = "Please enter a username.")]
         public string UserName { get; set; }

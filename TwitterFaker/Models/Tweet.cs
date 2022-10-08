@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TwitterFaker.Models
 {
     public class Tweet
     {
         // EF will instruct the database to automatically generate this value
+        [Key]
         public int TweetId { get; set; }
 
         //Will be obtained from the signed in user 
-        public int UserId { get; set; }
+        public IdentityUser User { get; set; }
 
         [Required(ErrorMessage = "Please enter a username.")]
         public string UserName { get; set; }

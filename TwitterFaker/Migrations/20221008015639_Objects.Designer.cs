@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwitterFaker.Models;
 
 namespace TwitterFaker.Migrations
 {
     [DbContext(typeof(TwitterFakerContext))]
-    partial class TwitterFakerContextModelSnapshot : ModelSnapshot
+    [Migration("20221008015639_Objects")]
+    partial class Objects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
