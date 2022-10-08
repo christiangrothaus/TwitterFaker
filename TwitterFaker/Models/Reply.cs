@@ -25,7 +25,7 @@ namespace TwitterFaker.Models
         public string Body { get; set; }
 
         [Required(ErrorMessage = "Please enter a date and time.")]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number of retweets.")]

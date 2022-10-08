@@ -10,7 +10,7 @@ using TwitterFaker.Models;
 namespace TwitterFaker.Migrations
 {
     [DbContext(typeof(TwitterFakerContext))]
-    [Migration("20221008020539_Objects")]
+    [Migration("20221008211056_Objects")]
     partial class Objects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -270,9 +270,8 @@ namespace TwitterFaker.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DateTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
@@ -383,9 +382,8 @@ namespace TwitterFaker.Migrations
                     b.Property<string>("Client")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DateTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +33,7 @@ namespace TwitterFaker.Models
         public string Client { get; set; }
 
         [Required(ErrorMessage = "Please enter a date and time.")]
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number of retweets.")]

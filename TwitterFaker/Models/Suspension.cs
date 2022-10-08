@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Buffers.Text;
 using System.ComponentModel.DataAnnotations;
 
 namespace TwitterFaker.Models

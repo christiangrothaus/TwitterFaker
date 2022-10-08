@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TwitterFaker.Migrations
 {
@@ -91,7 +92,7 @@ namespace TwitterFaker.Migrations
                     Picture = table.Column<string>(nullable: true),
                     FactCheck = table.Column<string>(nullable: true),
                     Client = table.Column<string>(nullable: true),
-                    DateTime = table.Column<string>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false),
                     Retweets = table.Column<int>(nullable: false),
                     QuoteTweets = table.Column<int>(nullable: false),
                     Likes = table.Column<int>(nullable: false),
@@ -121,7 +122,7 @@ namespace TwitterFaker.Migrations
                     DisplayName = table.Column<string>(nullable: false),
                     ProfilePicture = table.Column<string>(nullable: true),
                     Body = table.Column<string>(nullable: false),
-                    DateTime = table.Column<string>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false),
                     Retweets = table.Column<int>(nullable: false),
                     QuoteTweets = table.Column<int>(nullable: false),
                     Likes = table.Column<int>(nullable: false),
