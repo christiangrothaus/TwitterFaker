@@ -1,7 +1,11 @@
-﻿@model Block
+﻿@using Microsoft.AspNetCore.Identity
+@model Block
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Block/Suspension";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    IdentityUser user = await UserManager.GetUserAsync(User);
+
 }
 
 
@@ -13,7 +17,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <form  asp-action="Update" method="post">
+            <form enctype="multipart/form-data" asp-action="Update" method="post">
                 <div class="form-row col-sm">
                    
                     <div class="form-group">
@@ -108,10 +112,8 @@
                 <input hidden id="isBlockAsp" asp-for="IsBlock"/>
                 <input hidden id="themeAsp" asp-for="Theme"/>
                 <input hidden id="fontAsp" asp-for="Font"/>
-                <input hidden asp-for="User"/>
                 <input hidden id="pfpAsp" asp-for="ProfilePicture"/>
                 <input type="hidden" asp-for="BlockId" />
-                <input type="hidden" asp-for="User" />
             </form>
         </div>
         <div id="preview" class="col-sm">

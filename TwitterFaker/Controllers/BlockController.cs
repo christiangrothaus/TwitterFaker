@@ -3,16 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using TwitterFaker.Models;
 using System.Linq;
 using System;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace TwitterFaker.Controllers
 {
     public class BlockController : Controller
     {
         private TwitterFakerContext context { get; }
+        private readonly UserManager<IdentityUser> userManager;
 
-        public BlockController(Models.TwitterFakerContext context)
+        public BlockController(TwitterFakerContext context, UserManager<IdentityUser> userManager)
         {
             this.context = context;
+            this.userManager = userManager;
         }
         // GET: BlocksController
         public ActionResult Index()
@@ -50,11 +54,11 @@ namespace TwitterFaker.Controllers
         }*/
 
         [HttpPost]
-        public IActionResult Update(Block block)
+        public async Task<IActionResult> Update(Block block)
         {
-            
             if (ModelState.IsValid)
             {
+                block.User = await userManager.GetUserAsync(User);
                 if (block.BlockId == 0)
                 {
                     //block.BlockId = 0;
