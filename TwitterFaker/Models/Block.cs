@@ -21,5 +21,6 @@ namespace TwitterFaker.Models
         public int Font { get; set; }
 
         public bool Verified { get; set; }
+        public bool IsBlock { get; set; }
     }
 }
