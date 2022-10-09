@@ -230,10 +230,10 @@ window.onload = function() {
             inputQuoteTweets.value,
             inputLikes.value
         ];
-        if(inputDateTime.value=="")
+        if (inputDateTime.valueAsDate == null)
             tweet.TextImageDateTimeStats.dateTime = new Date();
         else
-            tweet.TextImageDateTimeStats.dateTime = new Date(inputDateTime.value);
+            tweet.TextImageDateTimeStats.dateTime = inputDateTime.valueAsDate;
 
         console.log(pfpPlaceHolder.src);
     }

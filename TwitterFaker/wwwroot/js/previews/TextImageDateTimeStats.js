@@ -26,15 +26,15 @@
         //Date
         let dt = this.#dateTime;
         let currentDate = new Date();
-        let date = `${Months[dt.getMonth()]} ${dt.getUTCDate()}`;
+        let date = `${Months[dt.getMonth()]} ${dt.getDate()}`;
         if (currentDate.getFullYear() != dt.getFullYear()) {
             date += `, ${dt.getUTCFullYear()}`;
         }
         e.dateElement.innerHTML = date;
-
+        console.log(this.timeElement);
         //time
-        if (this.timeElement != null) {
-            this.timeElement.innerHTML = dt.toLocaleTimeString().replace(/:\d+ /g, " ");
+        if (e.timeElement != null) {
+            e.timeElement.innerHTML = dt.toLocaleTimeString().replace(/:\d+ /g, " ");
         }
 
         //Stats
