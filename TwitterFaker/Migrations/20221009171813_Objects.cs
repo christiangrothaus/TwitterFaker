@@ -19,7 +19,8 @@ namespace TwitterFaker.Migrations
                     ProfilePicture = table.Column<string>(nullable: true),
                     Theme = table.Column<int>(nullable: false),
                     Font = table.Column<int>(nullable: false),
-                    Verified = table.Column<bool>(nullable: false)
+                    Verified = table.Column<bool>(nullable: false),
+                    IsBlock = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

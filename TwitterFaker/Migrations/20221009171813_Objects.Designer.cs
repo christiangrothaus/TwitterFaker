@@ -10,7 +10,7 @@ using TwitterFaker.Models;
 namespace TwitterFaker.Migrations
 {
     [DbContext(typeof(TwitterFakerContext))]
-    [Migration("20221008211056_Objects")]
+    [Migration("20221009171813_Objects")]
     partial class Objects
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,6 +234,9 @@ namespace TwitterFaker.Migrations
 
                     b.Property<int>("Font")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsBlock")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");

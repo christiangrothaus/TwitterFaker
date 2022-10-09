@@ -233,6 +233,9 @@ namespace TwitterFaker.Migrations
                     b.Property<int>("Font")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsBlock")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
