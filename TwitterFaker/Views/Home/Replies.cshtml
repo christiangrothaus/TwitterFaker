@@ -5,16 +5,16 @@
 <script src="~/js/previews/TextImageDateTimeStats.js"></script>
 <script src="~/js/previews/ReplyChain.js"></script>
 <link href="~/css/preivews/global.css" rel="stylesheet" type="text/css"/>
-<link href="~/css/preivews/tweet.css" rel="stylesheet" type="text/css"/>
+<link href="~/css/preivews/replyChain.css" rel="stylesheet" type="text/css"/>
 <style>
-    .reply-input-div{
-        max-height:75vh;
+    #reply-input-div{
+        max-height:60vh;
         overflow-y:auto;
-        background-color:lightgreen;
+        
     }
-    .reply-input-div hr:last-of-type{
+    /**#reply-input-div hr:last-of-type{
         display:none;
-    }
+    }*/
     textarea{
         height:17px;
     }
@@ -41,83 +41,81 @@
     <div class="row">
         <div class="col-sm">
             <form>
-                <div class="form-row reply-input-div">
-                   <!-- <ol>
-                        <li>-->
-                            <table style="width:100%">
-                                <tr>
-                                    <td>Display Name</td>
-                                    <td>
-                                        <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Username</td>
-                                    <td>
-                                        <input type="text" class="form-control" id="inputUserName" placeholder="Username">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Profile Picture</td>
-                                    <td class="td-file-input">
-                                        <input name="profilePicture" type="file" class="form-control col-sm file-input-clear" id="inputPfp"/><button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
-                                        <img class="hide" id="pfpPlaceHolder"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Verified</td>
-                                    <td>
-                                        <input type="checkbox" class="form-check-input" id="inputVerified"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Body</td>
-                                    <td>
-                                        <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Image</td>
-                                    <td class="td-file-input">
-                                        <input name="picture" type="file" class="form-control col-sm file-input-clear" id="inputImage"/><button type="button" class="btn col-sm-1 input-clear-btn" id="imageClearBtn">X</button>
-                                        <img class="hide" id="imagePlaceHolder"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Date and Time</td>
-                                    <td>
-                                        <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime">
-                                    </td>
-                                </tr>
-                            </table>
+                <div class="form-row" id="reply-input-div">
+                            
+                  <template id="reply-input-template">
+                      <form>
+                          <table style="width:100%">
+                            <tr>
+                                <td>Display Name</td>
+                                <td>
+                                    <input type="text" class="form-control inputDisplayName" placeholder="Display Name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>
+                                    <input type="text" class="form-control inputUserName" placeholder="Username">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Profile Picture</td>
+                                <td class="td-file-input">
+                                    <input name="profilePicture" type="file" onchange="readFile(this)" class="form-control col-sm file-input-clear inputPfp" /><button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                                    <img class="hide pfpPlaceHolder"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Verified</td>
+                                <td>
+                                    <input type="checkbox" class="form-check-input inputVerified"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Body</td>
+                                <td>
+                                    <textarea class="form-control inputBody" rows="3" cols="83"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td class="td-file-input">
+                                    <input name="picture" type="file" onchange="readFile(this)" class="form-control col-sm file-input-clear inputImage"/><button type="button" class="btn col-sm-1 input-clear-btn" id="imageClearBtn">X</button>
+                                    <img class="hide imagePlaceHolder"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>
+                                    <input type="date" class="form-control inputDate" style="width: fit-content;">
+                                </td>
+                            </tr>
+                        </table>
 
-                            <div class="container">
-                                <div class="container topBreakDiv">
-                                    <div class="row">
-                                        <div class="form-group col-md" style="padding-left:0 !important">
-                                            <label for="inputRetweets">Retweets</label>
-                                            <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0">
-                                        </div>
-                                        <div class="form-group col-md">
-                                            <label for="inputQuoteTweets">Quote Tweets</label>
-                                            <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0"/>
-                                        </div>
-                                        <div class="form-group col-md" style="padding-right:0 !important">
-                                            <label for="inputLikes">Likes</label>
-                                            <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0">
-                                        </div>
+                        <div class="container">
+                            <div class="container topBreakDiv">
+                                <div class="row">
+                                    <div class="form-group col-md" style="padding-left:0 !important">
+                                        <label>Replies</label>
+                                        <input type="number" class="form-control inputComments" min="0" placeholder="0">
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label>Retweets</label>
+                                        <input type="number" class="form-control inputRetweets" min="0" placeholder="0"/>
+                                    </div>
+                                    <div class="form-group col-md" style="padding-right:0 !important">
+                                        <label>Likes</label>
+                                        <input type="number" class="form-control inputLikes" min="0" placeholder="0">
                                     </div>
                                 </div>
-                                <button type="button" class="submission btn btn-danger">Remove</button>
                             </div>
-                            <hr>
-                        <!--</li>
-                    </ol>-->
-                  <template id="reply-input-template">
-                      
+                        </div>
+                        <button type="button" class="submission btn btn-danger" onclick="removeReply(this)">Remove</button>
+                        <hr>
+                    </form>
                   </template>
                 </div>
-                <button type="button" class="btn btn-secondary submission">Add Reply</button>
+                <button type="button" class="btn btn-secondary submission" onclick="addReply()">Add Reply</button>
                 <div class="form-row">
                     <!--Theme and font-->
                     <div class="container topBreakDiv" style="padding-left:0px;">
@@ -172,11 +170,153 @@
                     </div>
                 </div>
                 <button type="submit" class="blue-btn btn btn-primary submission">Create</button>
-                <button class="btn btn-secondary submission" type="button" id="previewBtn">Preview</button>
+                <button class="btn btn-secondary submission" type="button" onclick="preview()">Preview</button>
             </form>
         </div>
-        <div class="col-sm">
-            hi
+        <div class="col-sm" id="output">
+            
         </div>
     </div>
 </div>
+
+
+
+<script>
+let replyChain;
+window.onload=function(){
+    replyChain=new ReplyChain(
+        {
+            font:0,
+            theme:1
+        },
+        
+        [{//tweet/reply
+            profileJSON:{
+                displayName:"Nick",
+                userName:"alphapixel",
+                profilePic:null,
+                verified:true,
+            },
+            textImageDateTimeStatsJSON:{
+                text:"hi",
+                image:null,
+                dateTime:new Date(),
+                stats:[123,0,55]
+            }
+        }]
+    );
+    document.querySelector("#output").appendChild(replyChain.container)
+    console.log("loaded")
+};
+const replyInputContainer = document.getElementById("reply-input-div");
+const template = document.getElementById("reply-input-template");
+function preview() {
+    replyChain.clearReplies();
+    let replyInputs = [...replyInputContainer.querySelectorAll("form")];
+    for (var i = 0; i < replyInputs.length; i++) {
+        let cReply = replyInputs[i];
+        console.log("added reply");
+        let pfpSrc = cReply.querySelector(".pfpPlaceHolder").src;
+        let imageSrc = cReply.querySelector(".imagePlaceHolder").src;
+        let dt = cReply.querySelector(".inputDate").valueAsDate;
+        replyChain.addReply({
+            profileJSON:{
+                displayName:cReply.querySelector(".inputDisplayName").value,
+                userName:cReply.querySelector(".inputUserName").value,
+                profilePic:(pfpSrc=="")? null : pfpSrc,
+                verified:cReply.querySelector(".inputVerified").checked,
+            },
+            textImageDateTimeStatsJSON:{
+                text:cReply.querySelector(".inputBody").value,
+                image: imageSrc == "" ? null : imageSrc,
+                dateTime:dt==null? new Date():dt,
+                stats:[
+                    cReply.querySelector(".inputComments").value,
+                    cReply.querySelector(".inputRetweets").value,
+                    cReply.querySelector(".inputLikes").value]
+            }
+        });
+    }
+    replyChain.theme = parseInt($("#themeRadio input:radio:checked").val());
+    replyChain.font = parseInt($("#fontRadio input:radio:checked").val());
+}
+function removeReply(reply){
+    replyInputContainer.removeChild(reply.parentElement);
+}
+function addReply() {
+    let newRep=template.content.cloneNode(true);
+    replyInputContainer.appendChild(newRep);
+}
+function readFile(e) {  
+    if (!e.files || !e.files[0]) return;
+    const FR = new FileReader();
+    FR.addEventListener("load", function(evt) {
+        e.parentElement.querySelector("img").src= evt.target.result;
+    }); 
+    FR.readAsDataURL(e.files[0]);
+}
+</script>
+    <!--ReplyChain Template-->
+<template id="replyChainBaseTemplate">
+    <div class="replyContainer">
+        <div class="tweetInnerContainer">
+        </div>
+    </div>
+</template>
+
+<template id="replyChainTweetTemplate">
+    <div class="reply css-1dbjc4n">
+        <div class="pfpContainer css-1dbjc4n">
+            <img class="pfp" src="default pfp.png"  width="48" height="48">
+            <div class="verticalBar verticalBarBottom css-1dbjc4n"></div>
+        </div>
+        <div class="tweetContentContainer css-1dbjc4n">
+            <div class="tweetHeader css-1dbjc4n">
+                <div class="nameContainer">
+                    <div class="name">Name</div>
+                    <div class="verified">
+                        <svg viewBox="0 0 24 24"><g><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"></path></g></svg>
+                    </div>
+                    <div class="usernameContainer">@@<span class="username">Username</span></div>
+                    <div class="bullet">·</div>
+                    <div class="date">Jun 1</div>
+                </div>
+                <div class="dropup">
+                    <div class="tweetDropdown">
+                        <svg viewBox="0 0 24 24"><g><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></g></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="tweetContent css-1dbjc4n">
+                <div class="css-1dbjc4n">
+                    <span class="tweetText">Your tweet here!</span>
+                </div>
+                <div class="imgContainer" style="border-radius:14px">
+                    <img class="img">
+                </div>
+                <div class="tweetButtons css-1dbjc4n">
+                    <div class="tweetButton css-1dbjc4n">
+                        <svg viewBox="0 0 24 24"><g><path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z"></path></g></svg>
+                        <div class="buttonText replies css-1dbjc4n">100</div>
+                    </div>
+                    <div class="tweetButton css-1dbjc4n">
+                        <svg viewBox="0 0 24 24"><g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g></svg>
+                        <div class="buttonText retweets css-1dbjc4n">200</div>
+                    </div>
+                    <div class="tweetButton css-1dbjc4n">
+                        <svg viewBox="0 0 24 24"><g><path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path></g></svg>
+                        <div class="buttonText likes css-1dbjc4n">300</div>
+                    </div>
+                    <div class="tweetButton css-1dbjc4n">
+                        <svg viewBox="0 0 24 24"><g><path d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z"></path><path d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z"></path></g></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="replyChainBufferTemplate">
+    <div class="tweetBuffer css-1dbjc4n" >
+        <div class="verticalBarTopContainer css-1dbjc4n"><div class="verticalBar verticalBarTop css-1dbjc4n"></div></div>
+    </div>
+</template>

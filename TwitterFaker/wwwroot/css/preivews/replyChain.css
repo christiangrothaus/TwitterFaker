@@ -163,3 +163,10 @@
 	width: 2px;
 	background-color: var(--tweet-tertiary-color);
 }
+	.replyContainer .imgContainer img {
+		border:1px solid transparent;
+		border-radius:14px;
+	}
+	.replyContainer .imgContainer{
+		margin-top:12px;
+	}

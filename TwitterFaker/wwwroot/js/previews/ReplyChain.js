@@ -14,6 +14,7 @@
             profileJSON.profilePic,
             profileJSON.verified,
         );
+        console.log(this.replyElement.querySelector(".imgContainer .img"))
         this.TextImageDateTimeStats = new TextImageDateTimeStats(
             textImageDateTimeStatsJSON.text,
             textImageDateTimeStatsJSON.image,
@@ -62,10 +63,17 @@ class ReplyChain extends TwitterElement {
         if (this.#replies.length - 1 < index)
             throw "Out of Bounds reply index: " + index;
         let rep = this.#replies.pop(index);
-        //console.log(rep);
         rep.replyElement.parentElement.removeChild(rep.replyElement);
-        if (rep.buffer.parentElement == this.tweetInnerContainer)
-            rep.buffer.parentElement.removeChild(buffer);
+        //console.log(rep);
+        //if (typeof rep.buffer != 'undefined') 
+            if (rep.buffer.parentElement == this.tweetInnerContainer)
+                rep.buffer.parentElement.removeChild(rep.buffer);
+        
+    }
+    clearReplies() {
+        while (this.#replies.length > 0) {
+            this.removeReply(0);
+        }
     }
     get Replies() { return this.#replies }
 

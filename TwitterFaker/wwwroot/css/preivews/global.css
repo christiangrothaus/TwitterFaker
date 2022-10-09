@@ -1,12 +1,12 @@
 /*Font*/
 @font-face{
     font-family: Chirp;
-    src: url(~/fonts/chirp.woff) format('woff')
+    src: url(/fonts/chirp.woff) format('woff')
     
 }
 @font-face {
     font-family: Inter;
-    src: url(~/fonts/inter.woff2)
+    src: url(/fonts/inter.woff2)
 }
 .interFont, .interFont *{
     font-family: Inter;
