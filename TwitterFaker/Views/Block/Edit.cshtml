@@ -128,8 +128,8 @@ console.log("Hi");
 window.onload = function() {
     [...document.querySelectorAll("input[type=radio]")].forEach(e => e.checked = false);
     //toggle on the selected theme/font
-    
-    [...document.getElementById("type").querySelectorAll("input")][aspValue("isBlock")? 0:1].checked = true;
+    console.log(aspValue("isBlock"),"is block");
+    [...document.getElementById("type").querySelectorAll("input")][aspValue("isBlock")=="true"? 0:1].checked = true;
     document.getElementById("fontRadio").children[parseInt(aspValue("font")) + 1].querySelector("input").checked = true;
     document.getElementById("themeRadio").children[parseInt(aspValue("theme"))+ 1].querySelector("input").checked = true;
      let blocks=new Block(
@@ -152,6 +152,7 @@ window.onload = function() {
     let verified = document.getElementById("inputVerified");
     let fontRadio = document.getElementById("fontRadio");
     let themeRadio = document.getElementById("themeRadio");
+    
     let pfpAsp = document.getElementById("pfpAsp");
     let inputPfp = document.getElementById("inputPfp");
     function updatePreview() {
@@ -167,6 +168,7 @@ window.onload = function() {
         document.getElementById("themeAsp").value = parseInt($("#themeRadio input:radio:checked").val());
         document.getElementById("fontAsp").value = parseInt($("#fontRadio input:radio:checked").val());
         document.getElementById("isBlockAsp").value = $("#type input:radio:checked").val() == "block";
+        console.log("aspblock:", document.getElementById("isBlockAsp").value);
     }
 
     [...document.querySelectorAll("input[type=radio]")].forEach(e=>e.onchange=UpdateComplexInputs)

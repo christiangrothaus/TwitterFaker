@@ -69,12 +69,16 @@
             <div class="timeline">
                 <div class="tl-text-container">
                     <div class="tl-main">
-                        <span class="tl-block">
-                            @@<span class="usernameOutput">@block.UserName</span> blocked you
-                        </span>
-                        <span class="tl-suspend hide">
+                            @if (@block.IsBlock)
+                            {
+                                <span class="tl-block">
+                                    @@<span class="usernameOutput">@block.UserName</span> blocked you
+                                </span>
+                            }else{
+                            <span class="tl-suspend">
                             Account Suspended
-                        </span>
+                            </span>
+                            }
                     </div>
                     <div class="tl-sub">
                             @if (@block.IsBlock)
@@ -99,7 +103,7 @@
     }
 </div>
 <script>
-    
+alert("nick fix verified and isblock not saving");
 console.log("Hi");
 window.onload = function() {
      var themes = ["ignore", "Dim", "Dark"];
