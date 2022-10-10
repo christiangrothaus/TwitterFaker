@@ -57,7 +57,7 @@
             }
         }
         if (this.#hideButton) {
-            e.statsElements[0].parentElement.parentElement.style.display = (this.#stats.find(e => e > 0) == undefined) ? "none" : "";
+            e.statsElements[0].parentElement.style.display = (this.#stats.find(e => e > 0) == undefined) ? "none" : "";
         }
        
     }
