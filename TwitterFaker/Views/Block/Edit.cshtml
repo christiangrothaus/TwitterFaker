@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="form-check form-switch topBreakDiv">
-                        <input type="checkbox" class="form-check-input" id="inputVerified" checked/>
+                        <input type="checkbox" class="form-check-input" id="inputVerified" asp-for="Verified" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)"/>
                         <label for="inputVerified" class="form-check-label">Verified</label>
                     </div>
                     <div class="container topBreakDiv" style="padding-left:0px;">
@@ -106,7 +106,7 @@
                     </div>
                     
                 </div>
-                <button type="submit" class="btn btn-primary submission">@ViewBag.Action</button>
+                <button type="submit" class="btn btn-primary submission" onclick="alert('isBlock: '+document.getElementById('isBlockAsp').value)">@ViewBag.Action</button>
                 <button class="btn btn-secondary submission" type="button" id="previewBtn">Preview</button>
                 <a asp-controller="Block" asp-action="Index" class="btn btn-light submission">Cancel</a>
                 <input hidden id="isBlockAsp" asp-for="IsBlock"/>
@@ -140,8 +140,8 @@ window.onload = function() {
             theme:0
         },
         {
-            displayName:"Nick",
-            userName:"alphapixel",
+            displayName:"Display Name",
+            userName:"Username",
             profilePic:null,
             verified:true,
         },true
@@ -169,7 +169,7 @@ window.onload = function() {
     function UpdateComplexInputs() {
         document.getElementById("themeAsp").value = parseInt($("#themeRadio input:radio:checked").val());
         document.getElementById("fontAsp").value = parseInt($("#fontRadio input:radio:checked").val());
-        document.getElementById("isBlockAsp").value = $("#type input:radio:checked").val() == "block";
+        document.getElementById("isBlockAsp").value = ($("#type input:radio:checked").val() == "block")+"";
         console.log("aspblock:", document.getElementById("isBlockAsp").value);
     }
 

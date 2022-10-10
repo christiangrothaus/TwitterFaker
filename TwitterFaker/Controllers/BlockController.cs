@@ -65,7 +65,10 @@ namespace TwitterFaker.Controllers
                     context.Blocks.Add(block);
                 }
                 else
+                {
+                    Console.WriteLine("IS BLOCK:" + block.IsBlock);
                     context.Blocks.Update(block);
+                }
                 context.SaveChanges();
                 //return RedirectToAction("Index", "Block");
             }
@@ -80,6 +83,7 @@ namespace TwitterFaker.Controllers
             if (id == 0)
                 return View("Edit",null);
             Console.WriteLine(id);
+            ModelState.Clear();
             return View("Edit",context.Blocks.First(z=>z.BlockId==id));
         }
 
@@ -88,6 +92,7 @@ namespace TwitterFaker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
+            throw new NotImplementedException();
             try
             {
                 return RedirectToAction(nameof(Index));
