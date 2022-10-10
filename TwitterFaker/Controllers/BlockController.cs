@@ -19,9 +19,11 @@ namespace TwitterFaker.Controllers
             this.userManager = userManager;
         }
         // GET: BlocksController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var blocks = context.Blocks.ToList();
+            var user = await userManager.GetUserAsync(User);
+            //userManager.GetUserId(user.)
+            var blocks = context.Blocks.Where(z=>z.User.Id==user.Id).ToList();
             return View(blocks);
         }
 
@@ -79,12 +81,20 @@ namespace TwitterFaker.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            Console.WriteLine(id);
             ViewBag.Action = "Update";
             if (id == 0)
-                return View("Edit",null);
-            Console.WriteLine(id);
+            {
+                //throw new NotImplementedException();
+                return View("Edit", new Block() { });
+
+            }
+            
             ModelState.Clear();
-            return View("Edit",context.Blocks.First(z=>z.BlockId==id));
+            
+            var block = context.Blocks.First(z => z.BlockId == id);
+            Console.WriteLine("edit isblock: " + block.IsBlock);
+            return View("Edit",block);
         }
 
         // POST: BlocksController/Edit/5
