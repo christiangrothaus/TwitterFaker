@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<ReplyChain>
+@{
+    ViewData["Title"] = "Replies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<h1>Reply Chains <a class="btn btn-primary" asp-action="Add" asp-controller="Reply">Add</a></h1>
+<link href="~/css/preivews/global.css" rel="stylesheet" type="text/css" />
+<link href="~/css/preivews/block.css" rel="stylesheet" type="text/css" />
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .block {
+        padding: 5px;
+        flex: 1;
+    }
+
+    .blockContainer {
+        min-width: 410px !important;
+        width: auto !important;
+    }
+
+    .block-button-div {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="container">
+    @if (Model != null){
+        @foreach (var replyChain in Model)
+        {
+        
+        }
+    }
+</div>
+<script>
+
+
+    window.onload = function () {
+        var themes = ["ignore", "Dim", "Dark"];
+        var fonts = ["ignore", "interFont", "chirp"];
+        [...document.querySelectorAll(".blockContainer")].forEach(e => {
+            e.classList.add(themes[parseInt(e.getAttribute("theme"))]);
+            e.classList.add(fonts[parseInt(e.getAttribute("font"))]);
+        }
+        );
+
+    }
+</script>

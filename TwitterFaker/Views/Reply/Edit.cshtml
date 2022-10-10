@@ -1,0 +1,252 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ReplyChain
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Replies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IdentityUser user = await UserManager.GetUserAsync(User);
+
+}
+
+<h1>Reply Chain</h1>
+<script src="~/js/previews/fakerShared.js"></script>
+<script src="~/js/previews/BlockSuspend.js"></script>
+<link href="~/css/preivews/global.css" rel="stylesheet" type="text/css" />
+<link href="~/css/preivews/block.css" rel="stylesheet" type="text/css" />
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <form enctype="multipart/form-data" asp-action="Update" method="post" asp-controller="Reply">
+                <div class="form-row col-sm">
+                    <div class="container p-3 my-3 border rounded">
+                        <div class="form-group">
+                            <label for="inputDisplayName">Display Name</label>
+                            <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
+                        </div>
+
+                        <div class="form-group topBreakDiv">
+                            <label for="inputUserName">Username</label>
+                            <input type="text" class="form-control" id="inputUserName" placeholder="Username">
+                        </div>
+                        <div class="form-group topBreakDiv">
+                            <label for="inputDateTime">Date and Time</label>
+                            <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime">
+                        </div>
+                        <div class="container">
+                            <div class="topBreakDiv row">
+                                <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                                <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp" />
+                                <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                                <img class="hide" id="pfpPlaceHolder" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBody">Body</label>
+                            <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
+                        </div>
+                        <div class="form-check form-switch topBreakDiv">
+                            <input type="checkbox" class="form-check-input" id="inputVerified" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+                            <label for="inputVerified" class="form-check-label">Verified</label>
+                        </div>
+                        <div class="container topBreakDiv">
+                            <div class="row">
+                                <div class="form-group col-md" style="padding-left:0 !important">
+                                    <label for="inputRetweets">Retweets</label>
+                                    <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0">
+                                </div>
+                                <div class="form-group col-md">
+                                    <label for="inputQuoteTweets">Quote Tweets</label>
+                                    <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0"/>
+                                </div>
+                                <div class="form-group col-md" style="padding-right:0 !important">
+                                    <label for="inputLikes">Likes</label>
+                                    <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <nav aria-label="Reply Pagination">
+                            <ul class="pagination">
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#" id="addReply">+</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Modifiers for all replies-->
+                    <div class="container topBreakDiv" style="padding-left:0px;">
+                        <div class="row">
+                            <div class="col-md-4" id="themeRadio">
+                                <span>Theme</span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="themeRadios" id="defaultTheme" value="0">
+                                    <label class="form-check-label" for="defaultTheme">Default</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="themeRadios" id="dimTheme" value="1">
+                                    <label class="form-check-label" for="dimTheme">Dim</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="themeRadios" id="darkTheme" value="2">
+                                    <label class="form-check-label" for="darkTheme">Dark</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="fontRadio">
+                                <span>Font</span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fontRadios" id="defaultFont" value="0">
+                                    <label class="form-check-label" for="defaultFont">Default</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fontRadios" id="interFont" value="1">
+                                    <label class="form-check-label" for="interFont">Inter</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2">
+                                    <label class="form-check-label" for="chirpFont">Chirp</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary submission">@ViewBag.Action</button>
+                <a asp-controller="Block" asp-action="Index" class="btn btn-secondary submission">Cancel</a>
+                <button class="btn btn-light submission" type="button" id="previewBtn">Preview</button>
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </form>
+        </div>
+        <div id="preview" class="col-sm">
+        </div>
+    </div>
+</div>
+<script>
+
+    function updateIsBlock() {
+        console.log("hi");
+    }
+    function aspValue(name) {
+        return document.getElementById(name + "Asp").value;
+    }
+    console.log("Hi");
+    window.onload = function () {
+        console.log($("input[name=IsBlock]").val())
+        const IsBlock = $("#IsBlock").get(0);
+
+        // [...document.querySelectorAll("input[type=radio]")].forEach(e => e.checked = false);
+        //toggle on the selected theme/font
+        [...document.getElementById("type").querySelectorAll("input")][IsBlock.value == "True" ? 0 : 1].checked = true;
+
+        document.getElementById("fontRadio").children[parseInt(aspValue("font")) + 1].querySelector("input").checked = true;
+        document.getElementById("themeRadio").children[parseInt(aspValue("theme")) + 1].querySelector("input").checked = true;
+        let blocks = new Block(
+            {
+                font: 0,
+                theme: 0
+            },
+            {
+                displayName: "Display Name",
+                userName: "Username",
+                profilePic: null,
+                verified: true,
+            }, true
+        );
+        let previewBox = document.getElementById("preview");
+        previewBox.appendChild(blocks.container);
+
+        let displayName = document.getElementById("inputDisplayName");
+        let userName = document.getElementById("inputUserName");
+        let verified = document.getElementById("inputVerified");
+        let fontRadio = document.getElementById("fontRadio");
+        let themeRadio = document.getElementById("themeRadio");
+
+        let pfpAsp = document.getElementById("pfpAsp");
+        let inputPfp = document.getElementById("inputPfp");
+        function updatePreview() {
+            blocks.profile.displayName = displayName.value;
+            blocks.profile.userName = userName.value;
+            blocks.profile.verified = verified.checked;
+            blocks.theme = parseInt($("#themeRadio input:radio:checked").val())
+            blocks.font = parseInt($("#fontRadio input:radio:checked").val())
+            blocks.isBlock = (IsBlock.value + "").toLowerCase() == "true";
+            blocks.profile.profilePic = pfpAsp.value;
+        }
+        function UpdateComplexInputs() {
+            document.getElementById("themeAsp").value = parseInt($("#themeRadio input:radio:checked").val());
+            document.getElementById("fontAsp").value = parseInt($("#fontRadio input:radio:checked").val());
+            IsBlock.value = ($("#type input:radio:checked").val() == "true");
+        }
+
+        [...document.querySelectorAll("input[type=radio]")].forEach(e => e.onchange = UpdateComplexInputs)
+
+        inputPfp.addEventListener("change", readFile);
+        document.getElementById("fileClearBtn").onclick = function () {
+            inputPfp.value = null;
+            pfpAsp.value = null;
+        }
+
+        function readFile() {
+
+            if (!this.files || !this.files[0]) return;
+
+            const FR = new FileReader();
+
+            FR.addEventListener("load", function (evt) {
+                pfpAsp.value = evt.target.result;
+            });
+
+            FR.readAsDataURL(this.files[0]);
+
+        }
+        document.getElementById("previewBtn").onclick = updatePreview;
+        updatePreview();
+    }
+</script>
+<template id="blockSuspendTemplate">
+    <div class="blockContainer Dark">
+        <div class="profile-canopy">
+            <div class="pfp-container">
+                <div class="pfp">
+                    <img class="pfp-image" src="default pfp.png">
+                </div>
+            </div>
+        </div>
+        <div class="namebar">
+            <div class="name">
+                <span class="displayName">Name</span>
+                <span class="verified">
+                    <svg viewBox="0 0 24 24"><g><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"></path></g></svg>
+                </span>
+            </div>
+            <div class="username">
+                @@<span class="usernameOutput">Username</span>
+            </div>
+        </div>
+        <div class="timeline">
+            <div class="tl-text-container">
+                <div class="tl-main">
+                    <span class="tl-block">
+                        @@<span class="usernameOutput">Username</span> blocked you
+                    </span>
+                    <span class="tl-suspend hide">
+                        Account Suspended
+                    </span>
+                </div>
+                <div class="tl-sub">
+                    <span class="tl-block">
+                        You are blocked from following @@<span class="usernameOutput">Username</span> and viewing @@<span class="usernameOutput">Username</span>’s Tweets.
+                    </span>
+                    <span class="tl-suspend hide">
+                        Twitter suspends accounts that violate the <span class="fakelink">Twitter Rules</span>.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
