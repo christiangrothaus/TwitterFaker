@@ -1,6 +1,9 @@
-.blockContainer{   
-    width: 480px;
-    margin: 10px auto;
+.blockContainer {
+	min-width: 410px !important;
+	width: auto !important;
+	min-height: 410px;
+	background: var(--timeLine);
+	/*padding-bottom:10px;*/
 }
 .blockContainer .profile-canopy{
     background-color: var(--profileCanopy);
@@ -11,6 +14,7 @@
 	left: 15px;
 	position: relative;
 }
+
 .blockContainer .pfp {
     height: 89px;
     width: 89px;

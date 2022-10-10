@@ -95,13 +95,16 @@
                     
                 </div>
                 <button type="submit" class="btn btn-primary submission">@ViewBag.Action</button>
-                <button class="btn btn-secondary submission" type="button" id="previewBtn">Preview</button>
-                <a asp-controller="Block" asp-action="Index" class="btn btn-light submission">Cancel</a>
+                <a asp-controller="Block" asp-action="Index" class="btn btn-secondary submission">Cancel</a>
+                <button class="btn btn-light submission" type="button" id="previewBtn">Preview</button>
                 <input hidden id="themeAsp" asp-for="Theme"/>
                 <input hidden id="fontAsp" asp-for="Font"/>
                 <input hidden id="pfpAsp" asp-for="ProfilePicture"/>
                 <input hidden asp-for="BlockId" />
-                <input hidden asp-for="IsBlock"/>
+                
+                @Html.HiddenFor(x=>x.IsBlock,new {Value=@Model.IsBlock})
+
+
                 <div asp-validation-summary="All" class="text-danger"></div>
             </form>
         </div>
@@ -111,7 +114,7 @@
     </div>
 </div>
 <script>
-
+    
 function updateIsBlock() {
     console.log("hi");
 }
@@ -120,11 +123,12 @@ function aspValue(name){
 }
 console.log("Hi");
 window.onload = function() {
-    const IsBlock = $("input[name=IsBlock]").get(1);
+    console.log($("input[name=IsBlock]").val())
+    const IsBlock = $("#IsBlock").get(0);
     
-    [...document.querySelectorAll("input[type=radio]")].forEach(e => e.checked = false);
+   // [...document.querySelectorAll("input[type=radio]")].forEach(e => e.checked = false);
     //toggle on the selected theme/font
-    [...document.getElementById("type").querySelectorAll("input")][IsBlock.value=="true"? 0:1].checked = true;
+    [...document.getElementById("type").querySelectorAll("input")][IsBlock.value=="True"? 0:1].checked = true;
     
     document.getElementById("fontRadio").children[parseInt(aspValue("font")) + 1].querySelector("input").checked = true;
     document.getElementById("themeRadio").children[parseInt(aspValue("theme"))+ 1].querySelector("input").checked = true;
@@ -157,7 +161,7 @@ window.onload = function() {
         blocks.profile.verified = verified.checked;
         blocks.theme =parseInt($("#themeRadio input:radio:checked").val())
         blocks.font=parseInt($("#fontRadio input:radio:checked").val())
-        blocks.isBlock = $("#type input:radio:checked").val() == "true";
+        blocks.isBlock =(IsBlock.value+"").toLowerCase() == "true";
         blocks.profile.profilePic = pfpAsp.value;
     }
     function UpdateComplexInputs() {

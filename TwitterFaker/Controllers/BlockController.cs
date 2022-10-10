@@ -28,32 +28,18 @@ namespace TwitterFaker.Controllers
         }
 
         // GET: BlocksController/Details/5
-        public ActionResult Details(int id)
+        /*public ActionResult Details(int id)
         {
             return View();
-        }
+        }*/
 
         // GET: BlocksController/Create
-        public ActionResult Create()
+       /* public ActionResult Create()
         {
             return View();
-        }
-
-      /*  // POST: BlocksController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }*/
+
+      
 
         [HttpPost]
         public async Task<IActionResult> Update(Block block)
@@ -96,8 +82,8 @@ namespace TwitterFaker.Controllers
             }
             
             ModelState.Clear();
-            
-            var block = context.Blocks.First(z => z.BlockId == id);
+
+            var block = GetBlockByID(id);
             Console.WriteLine("edit isblock: " + block.IsBlock);
             return View("Edit",block);
         }
@@ -117,12 +103,14 @@ namespace TwitterFaker.Controllers
                 return View();
             }
         }
-
+        
         // GET: BlocksController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View("Delete",GetBlockByID(id));
         }
+
+
         [HttpGet]
         public ActionResult Add()
         {
@@ -137,6 +125,8 @@ namespace TwitterFaker.Controllers
         {
             try
             {
+                context.Blocks.Remove(GetBlockByID(id));
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -144,6 +134,9 @@ namespace TwitterFaker.Controllers
                 return View();
             }
         }
-
+        public Block GetBlockByID(int id)
+        {
+            return context.Blocks.FirstOrDefault(e => e.BlockId == id);
+        }
     }
 }
