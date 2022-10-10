@@ -91,7 +91,7 @@ namespace TwitterFaker.Controllers
             if (id == 0)
             {
                 //throw new NotImplementedException();
-                return View("Edit", new Block() { });
+                return View("Edit", new Block() {IsBlock=true});
 
             }
             
