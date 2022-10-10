@@ -72,9 +72,14 @@ namespace TwitterFaker.Controllers
                     context.Blocks.Update(block);
                 }
                 context.SaveChanges();
-                //return RedirectToAction("Index", "Block");
+                return RedirectToAction("Index", "Block");
             }
-            return RedirectToAction("Index", "Block");
+            else
+            {
+                ViewBag.Action = (block.BlockId == 0) ? "Add" : "Update";
+                return View("Edit", block);
+            }
+            
         }
 
         // GET: BlocksController/Edit/5
