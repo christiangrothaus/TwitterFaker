@@ -18,60 +18,112 @@
         <div class="col-sm">
             <form enctype="multipart/form-data" asp-action="Update" method="post" asp-controller="Reply">
                 <div class="form-row col-sm">
-                    <div class="container p-3 my-3 border rounded">
-                        <div class="form-group">
-                            <label for="inputDisplayName">Display Name</label>
-                            <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name">
-                        </div>
-
-                        <div class="form-group topBreakDiv">
-                            <label for="inputUserName">Username</label>
-                            <input type="text" class="form-control" id="inputUserName" placeholder="Username">
-                        </div>
-                        <div class="form-group topBreakDiv">
-                            <label for="inputDateTime">Date and Time</label>
-                            <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime">
-                        </div>
-                        <div class="container">
-                            <div class="topBreakDiv row">
-                                <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
-                                <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp" />
-                                <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
-                                <img class="hide" id="pfpPlaceHolder" />
+                    <div class="container p-3 my-3 border rounded" id="replyForms">
+                        <div id="reply1" class="shown">
+                            <div class="form-group">
+                                <label for="inputDisplayName">Display Name</label>
+                                <input type="text" class="form-control" id="inputDisplayName1" placeholder="Display Name">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputUserName">Username</label>
+                                <input type="text" class="form-control" id="inputUserName1" placeholder="Username">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputDateTime">Date and Time</label>
+                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime1">
+                            </div>
+                            <div class="container">
+                                <div class="topBreakDiv row">
+                                    <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp1" />
+                                    <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                                    <img class="hide" id="pfpPlaceHolder" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputBody">Body</label>
+                                <textarea class="form-control" rows="3" cols="83" id="inputBody1"></textarea>
+                            </div>
+                            <div class="form-check form-switch topBreakDiv">
+                                <input type="checkbox" class="form-check-input" id="inputVerified1" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+                                <label for="inputVerified" class="form-check-label">Verified</label>
+                            </div>
+                            <div class="container topBreakDiv">
+                                <div class="row">
+                                    <div class="form-group col-md" style="padding-left:0 !important">
+                                        <label for="inputRetweets1">Retweets</label>
+                                        <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0">
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label for="inputQuoteTweets1">Quote Tweets</label>
+                                        <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0"/>
+                                    </div>
+                                    <div class="form-group col-md" style="padding-right:0 !important">
+                                        <label for="inputLikes1">Likes</label>
+                                        <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputBody">Body</label>
-                            <textarea class="form-control" rows="3" cols="83" id="inputBody"></textarea>
-                        </div>
-                        <div class="form-check form-switch topBreakDiv">
-                            <input type="checkbox" class="form-check-input" id="inputVerified" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
-                            <label for="inputVerified" class="form-check-label">Verified</label>
-                        </div>
-                        <div class="container topBreakDiv">
-                            <div class="row">
-                                <div class="form-group col-md" style="padding-left:0 !important">
-                                    <label for="inputRetweets">Retweets</label>
-                                    <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0">
+                        <div id="reply2" class="visually-hidden">
+                            <div class="form-group">
+                                <label for="inputDisplayName">Display Name</label>
+                                <input type="text" class="form-control" id="inputDisplayName2" placeholder="Display Name">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputUserName">Username</label>
+                                <input type="text" class="form-control" id="inputUserName2" placeholder="Username">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputDateTime">Date and Time</label>
+                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime2">
+                            </div>
+                            <div class="container">
+                                <div class="topBreakDiv row">
+                                    <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp2" />
+                                    <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn2">X</button>
+                                    <img class="hide" id="pfpPlaceHolder" />
                                 </div>
-                                <div class="form-group col-md">
-                                    <label for="inputQuoteTweets">Quote Tweets</label>
-                                    <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0"/>
-                                </div>
-                                <div class="form-group col-md" style="padding-right:0 !important">
-                                    <label for="inputLikes">Likes</label>
-                                    <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputBody">Body</label>
+                                <textarea class="form-control" rows="3" cols="83" id="inputBody2"></textarea>
+                            </div>
+                            <div class="form-check form-switch topBreakDiv">
+                                <input type="checkbox" class="form-check-input" id="inputVerified2" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+                                <label for="inputVerified" class="form-check-label">Verified</label>
+                            </div>
+                            <div class="container topBreakDiv">
+                                <div class="row">
+                                    <div class="form-group col-md" style="padding-left:0 !important">
+                                        <label for="inputRetweets">Retweets</label>
+                                        <input type="number" class="form-control" id="inputRetweets2" value="0" min="0" placeholder="0">
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label for="inputQuoteTweets">Quote Tweets</label>
+                                        <input type="number" class="form-control" id="inputQuoteTweets2" value="0" min="0" placeholder="0" />
+                                    </div>
+                                    <div class="form-group col-md" style="padding-right:0 !important">
+                                        <label for="inputLikes">Likes</label>
+                                        <input type="number" class="form-control" id="inputLikes2" value="0" min="0" placeholder="0">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Page Controls-->
+
                     <div class="mt-3">
                         <nav aria-label="Reply Pagination">
-                            <ul class="pagination">
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#" id="addReply">+</a></li>
+                            <ul class="pagination mb-3" id="pageList" style="width: fit-content;">
+                                <li class="page-item"><a class="page-link active" href="#" id="page1">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#" id="page2">2</a></li>  
                             </ul>
+                            <div class="container row">
+                                <a class="btn btn-primary col-md-3 me-3" id="addReply">Add Reply</a>
+                                <a class="btn btn-danger col-md-3" id="deleteSelectedReply">Delete Reply</a>
+                            </div>
                         </nav>
                     </div>
 
@@ -208,6 +260,7 @@
         updatePreview();
     }
 </script>
+<script src="~/js/ReplyChainManager.js"></script>
 <template id="blockSuspendTemplate">
     <div class="blockContainer Dark">
         <div class="profile-canopy">
@@ -249,4 +302,57 @@
             </div>
         </div>
     </div>
+</template>
+
+<template id="replyFormTemplate">
+    <div id="treply" class="shown">
+        <div class="form-group">
+            <label for="inputDisplayName">Display Name</label>
+            <input type="text" class="form-control" id="tinputDisplayName" placeholder="Display Name">
+        </div>
+        <div class="form-group topBreakDiv">
+            <label for="inputUserName">Username</label>
+            <input type="text" class="form-control" id="tinputUserName" placeholder="Username">
+        </div>
+        <div class="form-group topBreakDiv">
+            <label for="inputDateTime">Date and Time</label>
+            <input type="datetime-local" class="form-control" style="width: fit-content;" id="tinputDateTime">
+        </div>
+        <div class="container">
+            <div class="topBreakDiv row">
+                <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="tinputPfp" />
+                <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                <img class="hide" id="pfpPlaceHolder" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputBody">Body</label>
+            <textarea class="form-control" rows="3" cols="83" id="tinputBody"></textarea>
+        </div>
+        <div class="form-check form-switch topBreakDiv">
+            <input type="checkbox" class="form-check-input" id="tinputVerified" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+            <label for="inputVerified" class="form-check-label">Verified</label>
+        </div>
+        <div class="container topBreakDiv">
+            <div class="row">
+                <div class="form-group col-md" style="padding-left:0 !important">
+                    <label for="inputRetweets">Retweets</label>
+                    <input type="number" class="form-control" id="tinputRetweets" value="0" min="0" placeholder="0">
+                </div>
+                <div class="form-group col-md">
+                    <label for="inputQuoteTweets">Quote Tweets</label>
+                    <input type="number" class="form-control" id="tinputQuoteTweets" value="0" min="0" placeholder="0" />
+                </div>
+                <div class="form-group col-md" style="padding-right:0 !important">
+                    <label for="inputLikes">Likes</label>
+                    <input type="number" class="form-control" id="tinputLikes" value="0" min="0" placeholder="0">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="pageButtonTemplate">
+    <li class="page-item"><a class="page-link" href="#" id="tpage"></a></li>
 </template>
