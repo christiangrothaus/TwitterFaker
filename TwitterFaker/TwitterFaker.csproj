@@ -19,6 +19,12 @@
     <Compile Remove="Migrations\20221008015639_Objects.Designer.cs" />
     <Compile Remove="Migrations\20221008020539_Objects.cs" />
     <Compile Remove="Migrations\20221008020539_Objects.Designer.cs" />
+    <Compile Remove="Migrations\20221008211056_Objects.cs" />
+    <Compile Remove="Migrations\20221008211056_Objects.Designer.cs" />
+    <Compile Remove="Migrations\20221013003426_Objects.cs" />
+    <Compile Remove="Migrations\20221013003426_Objects.Designer.cs" />
+    <Compile Remove="Migrations\20221013003843_Objects.cs" />
+    <Compile Remove="Migrations\20221013003843_Objects.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -40,5 +40,7 @@ namespace TwitterFaker.Models
         public int Likes { get; set; }
 
         public bool Verified { get; set; }
+
+        public int Index { get; set; }
     }
 }
