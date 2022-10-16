@@ -1,0 +1,375 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model Tweet
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Tweet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IdentityUser user = await UserManager.GetUserAsync(User);
+
+}
+
+
+<script src="~/js/previews/fakerShared.js"></script>
+<script src="~/js/previews/TextImageDateTimeStats.js"></script>
+<script src="~/js/previews/Tweet.js"></script>
+<link href="~/css/preivews/global.css" rel="stylesheet" type="text/css"/>
+<link href="~/css/preivews/tweet.css" rel="stylesheet" type="text/css"/>
+<h1 class="h1-0-margin">Tweet</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <form enctype="multipart/form-data" asp-action="Update" asp-controller="Tweet" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputDisplayName">Display Name</label>
+                        <input type="text" class="form-control" id="inputDisplayName" placeholder="Display Name" asp-for="DisplayName">
+                    </div>
+                    
+                    <div class="form-group topBreakDiv">
+                        <label for="inputUserName">Username</label>
+                        <input type="text" class="form-control" id="inputUserName" placeholder="Username" asp-for="UserName">
+                    </div>
+
+                    <div class="container">
+                        <div class="topBreakDiv row">
+                            <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                            <input name="profilePicture" type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
+                            <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                           <!-- <img class="hide" id="pfpPlaceHolder"/>-->
+                        </div>
+                    </div>
+                     <div class="form-check form-switch topBreakDiv">
+                        <input type="checkbox" class="form-check-input" id="inputVerified" asp-for="Verified"/>
+                        <label for="inputVerified" class="form-check-label">Verified</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputBody">Body</label>
+                        <textarea class="form-control" rows="3" cols="83" id="inputBody" asp-for="Body"></textarea>
+                    </div>
+
+                    <div class="container topBreakDiv">
+                        <div class="row">
+                            <label for="inputImage" style="padding-left: 0 !important;">Image</label>
+                            <input name="picture" type="file" class="form-control col-sm file-input-clear" id="inputImage"/>
+                            <button type="button" class="btn col-sm-1 input-clear-btn" id="imageClearBtn">X</button>
+                         <!--  @@if (@@Model.ProfilePicture != null && @@Model.ProfilePicture.Length > 0)
+                            {
+                                <img class="hide" id="imagePlaceHolder" src="@@Model.ProfilePicture"/>
+                            }
+                            else
+                            {
+                                <img class="hide" id="imagePlaceHolder"/>
+                            }-->
+                        </div>
+                    </div>
+                    <div class="form-group topBreakDiv">
+                        <label for="inputFactCheck">Fact Check</label>
+                        <input type="text" class="form-control" id="inputFactCheck" placeholder="Fact Checker" asp-for="FactCheck">
+                    </div>
+
+                    <div class="form-group topBreakDiv">
+                        <label for="inputClient">Client</label>
+                        <input type="text" class="form-control" id="inputClient" placeholder="Twitter Client" asp-for="Client">
+                    </div>
+
+                    <div class="form-group topBreakDiv">
+                        <label for="inputDateTime">Date and Time</label>
+                        <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime" asp-for="DateTime">
+                    </div>
+                    <div class="container topBreakDiv">
+                        <div class="row">
+                            <div class="form-group col-md" style="padding-left:0 !important">
+                                <label for="inputRetweets">Retweets</label>
+                                <input type="number" class="form-control" id="inputRetweets" min="0" placeholder="0" asp-for="Retweets">
+                            </div>
+                            <div class="form-group col-md">
+                                <label for="inputQuoteTweets">Quote Tweets</label>
+                                <input type="number" class="form-control" id="inputQuoteTweets" min="0" placeholder="0" asp-for="QuoteTweets"/>
+                            </div>
+                            <div class="form-group col-md" style="padding-right:0 !important">
+                                <label for="inputLikes">Likes</label>
+                                <input type="number" class="form-control" id="inputLikes" min="0" placeholder="0" asp-for="Likes">
+                            </div>
+                        </div>
+                    </div>
+                     <div class="container topBreakDiv" style="padding-left:0px;">
+                        <div class="row">
+                            <div class="col-md" id="themeRadio">
+                                <span>Theme</span>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="themeRadios" id="defaultTheme" value="0">
+                                  <label class="form-check-label" for="defaultTheme">
+                                    Default
+                                  </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="themeRadios" id="dimTheme" value="1">
+                                  <label class="form-check-label" for="dimTheme">
+                                    Dim
+                                  </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="themeRadios" id="darkTheme" value="2">
+                                  <label class="form-check-label" for="darkTheme">
+                                    Dark
+                                  </label>
+                                </div>
+                            </div>
+                             <div class="col-md" id="fontRadio">
+                                <span>Font</span>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="defaultFont" value="0">
+                                  <label class="form-check-label" for="defaultFont">
+                                    Default
+                                  </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="interFont" value="1">
+                                  <label class="form-check-label" for="interFont">
+                                    Inter
+                                  </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2" asp-for="Font">
+                                  <label class="form-check-label" for="chirpFont">
+                                    Chirp
+                                  </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary submission">@ViewBag.Action</button>
+                <button class="btn btn-secondary submission" type="button" id="previewBtn">Preview</button>
+                <input hidden id="themeAsp" asp-for="Theme"/>
+                <input hidden id="fontAsp" asp-for="Font"/>
+                
+                @@Html.HiddenFor(x=>x.Picture)
+                <!--<input hidden id="Picture" asp-for="Picture"/>--->
+                
+                @Html.HiddenFor(x=>x.ProfilePicture)
+                <!--<input hidden id="pfpAsp" asp-for="ProfilePicture"/>-->
+                <input hidden id="PictureAsp" asp-for="Picture"/>
+                <input hidden asp-for="TweetId" />
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </form>
+        </div>
+        <div class="col-sm" id="preview">
+                
+            </div>
+    </div>
+</div>
+<script>
+
+function aspValue(name){
+    return document.getElementById(name+"Asp").value;
+}
+function updateHiddens(){
+    document.getElementById("themeAsp").value=parseInt($("#themeRadio input:radio:checked").val());
+    document.getElementById("fontAsp").value=parseInt($("#fontRadio input:radio:checked").val())    
+}
+let tweet;
+let Picture;
+let ProfilePicture;
+window.onload = function() {
+    
+    Picture = document.getElementById("PictureAsp");
+    Picture.value = Picture.value;
+    ProfilePicture = document.getElementById("ProfilePicture");
+
+    tweet=new Tweet(
+        {
+            font:0,
+            theme:1
+        },
+        {
+            displayName:"Display Name",
+            userName:"User Name",
+            profilePic:null,
+            verified:true,
+        },
+        {
+            text:"hi",
+            image:null,
+            dateTime:new Date(),
+            stats:[123,0,55]
+        },
+        null,null
+    );
+    
+    //Loading from hidden inputs
+    console.log("pfp",ProfilePicture, ProfilePicture.value);
+    console.log("picture", Picture,Picture.value);
+
+    document.getElementById("fontRadio").children[parseInt(aspValue("font"))+1].querySelector("input").checked = true;    
+    document.getElementById("themeRadio").children[parseInt(aspValue("theme"))+1].querySelector("input").checked = true;
+    
+    //consts
+    document.getElementById("preview").appendChild(tweet.container);
+    let displayName = document.getElementById("inputDisplayName");
+    let userName = document.getElementById("inputUserName");
+    let verified = document.getElementById("inputVerified");
+    
+    let fontRadio = document.getElementById("fontRadio");
+    let themeRadio = document.getElementById("themeRadio");
+    
+    let inputBody = document.getElementById("inputBody");
+    let inputDateTime = document.getElementById("inputDateTime");
+
+    let inputRetweets=document.getElementById("inputRetweets")
+    let inputLikes = document.getElementById("inputLikes");
+    let inputQuoteTweets = document.getElementById("inputQuoteTweets");
+
+    let inputFactCheck = document.getElementById("inputFactCheck");
+    let inputClient = document.getElementById("inputClient");
+
+    //let pfpPlaceHolder = document.getElementById("pfpPlaceHolder");
+    let inputPfp = document.getElementById("inputPfp");
+    inputPfp.addEventListener("change", function(){
+         if (!this.files || !this.files[0]) return;
+        const FR = new FileReader();
+        FR.addEventListener("load", function(evt) {
+           ProfilePicture.value = evt.target.result;
+        }); 
+        FR.readAsDataURL(this.files[0]);
+    });
+    document.getElementById("fileClearBtn").onclick = function() {
+        inputPfp.value = null;
+        ProfilePicture.value = null;
+    }
+
+
+    let inputImage = document.getElementById("inputImage");
+    inputImage.addEventListener("change", function(){
+         if (!this.files || !this.files[0]) return;
+            const FR = new FileReader();
+            FR.addEventListener("load", function(evt) {
+               Picture.value = evt.target.result;
+            }); 
+        FR.readAsDataURL(this.files[0]);
+    });
+     document.getElementById("imageClearBtn").onclick = function() {
+        inputImage.value = null;
+         Picture.value = null;
+        
+    }
+
+    function updatePreview() {
+        tweet.profile.displayName = displayName.value;
+        tweet.profile.userName = userName.value;
+        tweet.profile.verified = verified.checked;
+        tweet.theme = parseInt($("#themeRadio input:radio:checked").val());
+        tweet.font=parseInt($("#fontRadio input:radio:checked").val())
+        let pfp = ProfilePicture.value;
+        let pfpVal = pfp == null || pfp.length == 0 ? null : pfp;
+        console.log("pfpVal", pfpVal);
+        tweet.profile.profilePic = pfpVal;
+        
+        tweet.debunk = inputFactCheck.value;
+        tweet.client = inputClient.value;
+        let pic = Picture.value;
+        let picVal = pic == null || pic.length == 0 ? null : pic;
+        console.log("picVal", picVal);
+        tweet.TextImageDateTimeStats.image =picVal;
+        tweet.TextImageDateTimeStats.text = inputBody.value;
+
+        tweet.TextImageDateTimeStats.stats = [
+            inputRetweets.value,
+            inputQuoteTweets.value,
+            inputLikes.value
+        ];
+        if (inputDateTime.valueAsDate == null)
+            tweet.TextImageDateTimeStats.dateTime = new Date();
+        else
+            tweet.TextImageDateTimeStats.dateTime = inputDateTime.valueAsDate;
+
+        
+    }
+    document.getElementById("previewBtn").onclick = updatePreview;
+    updatePreview();
+    
+}
+</script>
+
+<template id="tweetTemplate">
+        <div class="tweetContainer">
+            <div class="tweetHeader">
+                <div class="pfpContainer">
+                    <img class="profileImg" width="48" height="48">
+                </div>
+                <div class="headerRight">
+                    <div class="userInfo">
+                        <div class="nameContainer">
+                            <span class="displayName">Name</span>
+                            <span class="verified">
+                                <svg viewBox="0 0 24 24"><g><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"></path></g></svg>
+                            </span>
+                        </div>
+                        <div class="userName">
+                            @@<span class="userNameText">Username</span>
+                        </div>
+                    </div>
+                    <div class="dropup">
+                        <svg viewBox="0 0 24 24"><g><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></g></svg>
+                    </div>
+                </div>
+            </div>
+            <div><!--Tweet-->
+                <span class="tweetText">text</span>
+            </div>
+            <div class="imgContainer">
+                <img class="tweetImg">
+            </div>
+            <div class="debunk">
+                <div class="debunkIcon">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><g><circle cx="12.025" cy="16.437" r="1.281"></circle><path d="M14.39 7.194c-.094-.127-.242-.2-.4-.2h-3.928c-.158 0-.307.073-.4.2-.096.126-.125.29-.08.442l1.814 6.098c.063.212.258.357.48.357h.298c.222 0 .416-.145.48-.356l1.813-6.098c.047-.152.017-.316-.077-.442z"></path><path d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75zm0-20C6.9 2.75 2.75 6.9 2.75 12S6.9 21.25 12 21.25s9.25-4.15 9.25-9.25S17.1 2.75 12 2.75z"></path></g></svg>
+                </div>
+                <div class="debunkText">
+                    This fact is disputed
+                </div>
+            </div>
+            <div class="tweetDetails">
+                <span class="detailDateTime">
+                    <span class="detailTime">12:00 PM</span>
+                    · 
+                    <span class="detailDate"></span>
+                </span>
+                <span class="detailClient">
+                    · 
+                    <span class="detailClientText">Twitter for iPhone</span>
+                </span>
+            </div>
+            <div class="tweetNumbers">
+                <span class="tweetNumber retweets" style="margin-right:20px">
+                    <b class="tweetNumberBold">0</b>
+                    Retweet<span class="numberPlural">s</span>
+                </span>
+                <span class="tweetNumber quotes" style="margin-right:20px">
+                    <b class="tweetNumberBold">0</b>
+                    Quote Tweet<span class="numberPlural">s</span>
+                </span>
+                <span class="tweetNumber likes" style="margin-right:20px">
+                    <b class="tweetNumberBold">0</b>
+                    Like<span class="numberPlural">s</span>
+                </span>
+            </div>
+            <div class="buttonsContainer">
+                <div class="tweetButton">
+                    <svg viewBox="0 0 24 24"><g><path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z"></path></g></svg>
+                </div>
+                <div class="tweetButton">
+                    <svg viewBox="0 0 24 24"><g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g></svg>
+                </div>
+                <div class="tweetButton">
+                    <svg viewBox="0 0 24 24"><g><path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path></g></svg>
+                </div>
+                <div class="tweetButton">
+                    <svg viewBox="0 0 24 24"><g><path d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z"></path><path d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z"></path></g></svg>
+                </div>
+            </div>
+        </div>
+    </template>

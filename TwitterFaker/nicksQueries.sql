@@ -7,5 +7,7 @@ update Blocks set IsBlock=1 where BlockId=18
 SELECT * FROM BLOCKS;
 
 /**TWEET**/
+delete from Tweets
+
 select * from Tweets
-insert into Tweets values('17ade5c7-5347-4c14-b513-b5deeddaede2','alphapixel','Nick Bell','hi',null,null,null,null,convert(datetime,'18-06-12 10:34:09 PM',5),0,0,0,1,3,0);
+insert into Tweets values('17ade5c7-5347-4c14-b513-b5deeddaede2','alphapixel','Nick Bell','hi',null,null,null,null,convert(datetime,'18-06-12 10:34:09 PM',5),0,0,0,1,2,0);

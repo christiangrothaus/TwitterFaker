@@ -8,7 +8,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<h1>Block/Suspension <a class="btn btn-primary" asp-action="Add" asp-controller="Block">Add</a></h1>
+<h1>Block/Suspension <a class="btn btn-primary" asp-action="Add" asp-controller="Tweet">Add</a></h1>
 <link href="~/css/preivews/global.css" rel="stylesheet" type="text/css"/>
 <link href="~/css/preivews/tweet.css" rel="stylesheet" type="text/css"/>
 <style>
@@ -36,7 +36,7 @@
      @foreach(var tweet in Model)
     {
         <div class="block"> 
-          <div class="tweetContainer">
+          <div class="tweetContainer" theme="@tweet.Theme" font="@tweet.Font">
             <div class="tweetHeader">
                 <div class="pfpContainer">
                     @if(@tweet.ProfilePicture==null){
@@ -69,14 +69,14 @@
                 <span class="tweetText">@tweet.Body</span>
             </div>
             <div class="imgContainer @((@tweet.Picture!=null)? "":"hide")">
-                <img class="tweetImg">
+                <img class="tweetImg" src="@tweet.Picture">
             </div>
             <div class="debunk @((@tweet.FactCheck!=null && @tweet.FactCheck.Length>0)? "":"hide")">
                 <div class="debunkIcon">
                     <svg fill="currentColor" viewBox="0 0 24 24"><g><circle cx="12.025" cy="16.437" r="1.281"></circle><path d="M14.39 7.194c-.094-.127-.242-.2-.4-.2h-3.928c-.158 0-.307.073-.4.2-.096.126-.125.29-.08.442l1.814 6.098c.063.212.258.357.48.357h.298c.222 0 .416-.145.48-.356l1.813-6.098c.047-.152.017-.316-.077-.442z"></path><path d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75zm0-20C6.9 2.75 2.75 6.9 2.75 12S6.9 21.25 12 21.25s9.25-4.15 9.25-9.25S17.1 2.75 12 2.75z"></path></g></svg>
                 </div>
                 <div class="debunkText">
-                    This fact is disputed
+                    @tweet.FactCheck
                 </div>
             </div>
             <div class="tweetDetails">
@@ -88,20 +88,20 @@
                 
                 <span class="detailClient @((@tweet.Client!=null && @tweet.Client.Length>0)? "":"hide")">
                     · 
-                    <span class="detailClientText">Twitter for iPhone</span>
+                    <span class="detailClientText">@tweet.Client</span>
                 </span>
             </div>
             <div class="tweetNumbers @(@tweet.QuoteTweets+@tweet.Retweets+@tweet.Likes>0? "":"hide")">
                 <span class="tweetNumber retweets @(@tweet.Retweets>0? "":"hide")" style="margin-right:20px">
-                    <b class="tweetNumberBold">0</b>
+                    <b class="tweetNumberBold">@tweet.Retweets</b>
                     Retweet<span class="numberPlural">s</span>
                 </span>
                 <span class="tweetNumber quotes @(@tweet.QuoteTweets>0? "":"hide")" style="margin-right:20px">
-                    <b class="tweetNumberBold">0</b>
+                    <b class="tweetNumberBold">@tweet.QuoteTweets</b>
                     Quote Tweet<span class="numberPlural">s</span>
                 </span>
                 <span class="tweetNumber likes @(@tweet.Likes>0? "":"hide")" style="margin-right:20px">
-                    <b class="tweetNumberBold">0</b>
+                    <b class="tweetNumberBold">@tweet.Likes</b>
                     Like<span class="numberPlural">s</span>
                 </span>
             </div>
@@ -133,7 +133,7 @@
 window.onload = function() {
      var themes = ["ignore", "Dim", "Dark"];
     var fonts = ["ignore", "interFont", "chirp"];
-    [...document.querySelectorAll(".blockContainer")].forEach(e => {
+    [...document.querySelectorAll(".tweetContainer")].forEach(e => {
         e.classList.add(themes[parseInt(e.getAttribute("theme"))]);
         e.classList.add(fonts[parseInt(e.getAttribute("font"))]);
         }
