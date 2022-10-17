@@ -16,100 +16,102 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <form enctype="multipart/form-data" asp-action="Update" method="post" asp-controller="Reply">
+            <form enctype="multipart/form-data" asp-action="Edit" method="post" asp-controller="Reply">
                 <div class="form-row col-sm">
                     <div class="container p-3 my-3 border rounded" id="replyForms">
                         <div id="reply1" class="shown">
                             <div class="form-group">
                                 <label for="inputDisplayName">Display Name</label>
-                                <input type="text" class="form-control" id="inputDisplayName1" placeholder="Display Name">
+                                <input type="text" class="form-control" id="inputDisplayName1" placeholder="Display Name" asp-for="replies[0].DisplayName">
                             </div>
                             <div class="form-group topBreakDiv">
                                 <label for="inputUserName">Username</label>
-                                <input type="text" class="form-control" id="inputUserName1" placeholder="Username">
+                                <input type="text" class="form-control" id="inputUserName1" placeholder="Username" asp-for="replies[0].UserName">
                             </div>
                             <div class="form-group topBreakDiv">
                                 <label for="inputDateTime">Date and Time</label>
-                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime1">
+                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime1" asp-for="replies[0].DateTime">
                             </div>
                             <div class="container">
                                 <div class="topBreakDiv row">
                                     <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
-                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp1" />
-                                    <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp1" name="profilePicture1"/>
+                                    <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn1">X</button>
                                     <img class="hide" id="pfpPlaceHolder" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputBody">Body</label>
-                                <textarea class="form-control" rows="3" cols="83" id="inputBody1"></textarea>
+                                <textarea class="form-control" rows="3" cols="83" id="inputBody1" asp-for="replies[0].Body"></textarea>
                             </div>
                             <div class="form-check form-switch topBreakDiv">
-                                <input type="checkbox" class="form-check-input" id="inputVerified1" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+                                <input type="checkbox" class="form-check-input" id="inputVerified1" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" asp-for="replies[0].Verified"/>
                                 <label for="inputVerified" class="form-check-label">Verified</label>
                             </div>
                             <div class="container topBreakDiv">
                                 <div class="row">
                                     <div class="form-group col-md" style="padding-left:0 !important">
                                         <label for="inputRetweets1">Retweets</label>
-                                        <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0">
+                                        <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0" asp-for="replies[0].Retweets">
                                     </div>
                                     <div class="form-group col-md">
                                         <label for="inputQuoteTweets1">Quote Tweets</label>
-                                        <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0"/>
+                                        <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0" asp-for="replies[0].QuoteTweets"/>
                                     </div>
                                     <div class="form-group col-md" style="padding-right:0 !important">
                                         <label for="inputLikes1">Likes</label>
-                                        <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0">
+                                        <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0" asp-for="replies[0].Likes">
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="inputIndex1" asp-for="replies[0].Index" value="0"/>
                         </div>
                         <div id="reply2" class="visually-hidden">
                             <div class="form-group">
                                 <label for="inputDisplayName">Display Name</label>
-                                <input type="text" class="form-control" id="inputDisplayName2" placeholder="Display Name">
+                                <input type="text" class="form-control" id="inputDisplayName2" placeholder="Display Name" asp-for="replies[1].DisplayName">
                             </div>
                             <div class="form-group topBreakDiv">
                                 <label for="inputUserName">Username</label>
-                                <input type="text" class="form-control" id="inputUserName2" placeholder="Username">
+                                <input type="text" class="form-control" id="inputUserName2" placeholder="Username" asp-for="replies[1].UserName">
                             </div>
                             <div class="form-group topBreakDiv">
                                 <label for="inputDateTime">Date and Time</label>
-                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime2">
+                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime2" asp-for="replies[1].DateTime">
                             </div>
                             <div class="container">
                                 <div class="topBreakDiv row">
                                     <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
-                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp2" />
+                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp2" name="profilePicture2"/>
                                     <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn2">X</button>
                                     <img class="hide" id="pfpPlaceHolder" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputBody">Body</label>
-                                <textarea class="form-control" rows="3" cols="83" id="inputBody2"></textarea>
+                                <textarea class="form-control" rows="3" cols="83" id="inputBody2" asp-for="replies[1].Body"></textarea>
                             </div>
                             <div class="form-check form-switch topBreakDiv">
-                                <input type="checkbox" class="form-check-input" id="inputVerified2" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+                                <input type="checkbox" class="form-check-input" id="inputVerified2" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" asp-for="replies[1].Verified" />
                                 <label for="inputVerified" class="form-check-label">Verified</label>
                             </div>
                             <div class="container topBreakDiv">
                                 <div class="row">
                                     <div class="form-group col-md" style="padding-left:0 !important">
                                         <label for="inputRetweets">Retweets</label>
-                                        <input type="number" class="form-control" id="inputRetweets2" value="0" min="0" placeholder="0">
+                                        <input type="number" class="form-control" id="inputRetweets2" value="0" min="0" placeholder="0" asp-for="replies[1].Retweets">
                                     </div>
                                     <div class="form-group col-md">
                                         <label for="inputQuoteTweets">Quote Tweets</label>
-                                        <input type="number" class="form-control" id="inputQuoteTweets2" value="0" min="0" placeholder="0" />
+                                        <input type="number" class="form-control" id="inputQuoteTweets2" value="0" min="0" placeholder="0" asp-for="replies[1].QuoteTweets" />
                                     </div>
                                     <div class="form-group col-md" style="padding-right:0 !important">
                                         <label for="inputLikes">Likes</label>
-                                        <input type="number" class="form-control" id="inputLikes2" value="0" min="0" placeholder="0">
+                                        <input type="number" class="form-control" id="inputLikes2" value="0" min="0" placeholder="0" asp-for="replies[1].Likes">
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="inputIndex2" asp-for="replies[1].Index" value="1"/>
                         </div>
                     </div>
                     <!-- Page Controls-->
@@ -178,89 +180,31 @@
         </div>
     </div>
 </div>
+<script src="~/js/ReplyChainManager.js"></script>
 <script>
+    window.onload = () => {
+      let container = document.querySelector("#replyForms")
+      let template = document.querySelector("#replyFormTemplate")
+      let addButton = document.querySelector("#addReply")
+      let deleteButton = document.querySelector("#deleteSelectedReply")
+      let pageButtons = document.querySelector("#pageList")
+      let pageButtonTemplate = document.querySelector("#pageButtonTemplate")
+      document.querySelector("#defaultTheme").setAttribute("checked", "")
+      document.querySelector("#defaultFont").setAttribute("checked", "")
 
-    function updateIsBlock() {
-        console.log("hi");
-    }
-    function aspValue(name) {
-        return document.getElementById(name + "Asp").value;
-    }
-    console.log("Hi");
-    window.onload = function () {
-        console.log($("input[name=IsBlock]").val())
-        const IsBlock = $("#IsBlock").get(0);
-
-        // [...document.querySelectorAll("input[type=radio]")].forEach(e => e.checked = false);
-        //toggle on the selected theme/font
-        [...document.getElementById("type").querySelectorAll("input")][IsBlock.value == "True" ? 0 : 1].checked = true;
-
-        document.getElementById("fontRadio").children[parseInt(aspValue("font")) + 1].querySelector("input").checked = true;
-        document.getElementById("themeRadio").children[parseInt(aspValue("theme")) + 1].querySelector("input").checked = true;
-        let blocks = new Block(
-            {
-                font: 0,
-                theme: 0
-            },
-            {
-                displayName: "Display Name",
-                userName: "Username",
-                profilePic: null,
-                verified: true,
-            }, true
-        );
-        let previewBox = document.getElementById("preview");
-        previewBox.appendChild(blocks.container);
-
-        let displayName = document.getElementById("inputDisplayName");
-        let userName = document.getElementById("inputUserName");
-        let verified = document.getElementById("inputVerified");
-        let fontRadio = document.getElementById("fontRadio");
-        let themeRadio = document.getElementById("themeRadio");
-
-        let pfpAsp = document.getElementById("pfpAsp");
-        let inputPfp = document.getElementById("inputPfp");
-        function updatePreview() {
-            blocks.profile.displayName = displayName.value;
-            blocks.profile.userName = userName.value;
-            blocks.profile.verified = verified.checked;
-            blocks.theme = parseInt($("#themeRadio input:radio:checked").val())
-            blocks.font = parseInt($("#fontRadio input:radio:checked").val())
-            blocks.isBlock = (IsBlock.value + "").toLowerCase() == "true";
-            blocks.profile.profilePic = pfpAsp.value;
+      const paginationController = new ReplyPaginationController(container, template, pageButtonTemplate, addButton, deleteButton, pageButtons)
+      addButton.addEventListener("click", () => {paginationController.addReply()})
+      deleteButton.addEventListener("click", () => {paginationController.deleteReply()})
+      document.querySelector("#replyForms").addEventListener("click", (e) => {
+        if(e.target.id.includes("fileClearBtn") ) {
+          let formIndex = e.target.id.charAt(e.target.id.length - 1)
+          document.querySelector(`#inputPfp${formIndex}`).value = null
         }
-        function UpdateComplexInputs() {
-            document.getElementById("themeAsp").value = parseInt($("#themeRadio input:radio:checked").val());
-            document.getElementById("fontAsp").value = parseInt($("#fontRadio input:radio:checked").val());
-            IsBlock.value = ($("#type input:radio:checked").val() == "true");
-        }
-
-        [...document.querySelectorAll("input[type=radio]")].forEach(e => e.onchange = UpdateComplexInputs)
-
-        inputPfp.addEventListener("change", readFile);
-        document.getElementById("fileClearBtn").onclick = function () {
-            inputPfp.value = null;
-            pfpAsp.value = null;
-        }
-
-        function readFile() {
-
-            if (!this.files || !this.files[0]) return;
-
-            const FR = new FileReader();
-
-            FR.addEventListener("load", function (evt) {
-                pfpAsp.value = evt.target.result;
-            });
-
-            FR.readAsDataURL(this.files[0]);
-
-        }
-        document.getElementById("previewBtn").onclick = updatePreview;
-        updatePreview();
+        
+      })
+      document.querySelector("#pageList").addEventListener("click", (e) => {paginationController.selectReply(e.target.textContent)})
     }
 </script>
-<script src="~/js/ReplyChainManager.js"></script>
 <template id="blockSuspendTemplate">
     <div class="blockContainer Dark">
         <div class="profile-canopy">
@@ -322,7 +266,7 @@
             <div class="topBreakDiv row">
                 <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
                 <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="tinputPfp" />
-                <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
+                <button type="button" class="btn col-sm-1 input-clear-btn" id="tfileClearBtn">X</button>
                 <img class="hide" id="pfpPlaceHolder" />
             </div>
         </div>
@@ -350,6 +294,7 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="tinputIndex"/>
     </div>
 </template>
 
