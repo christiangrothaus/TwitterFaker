@@ -1,21 +1,4 @@
-﻿class Reply {
-  constructor(id, displayName, username, dateTime, profilePicture, body, verified, retweets, quoteTweets, likes, index) {
-    this.id = id
-    this.displayName = displayName
-    this.username = username
-    this.dateTime = dateTime
-    this.profilePicture = profilePicture
-    this.body = body
-    this.verified = verified
-    this.retweets = retweets
-    this.quoteTweets = quoteTweets
-    this.likes = likes
-    this.index = index
-  }
-
-}
-
-class ReplyPaginationController {
+﻿class ReplyPaginationController {
   constructor(container, formTemplate, pageButtonTemplate, addButton, deleteButton, pageButtons) {
     this.container = container
     this.formTemplate = formTemplate
@@ -27,21 +10,26 @@ class ReplyPaginationController {
     this.replyCount = 2
   }
 
-  loadReplyChain(replies) {
-    let formIndex = 1;
-    for (i = 0; i < 2; i++) {
-      this.container.querySelector(`#reply${formIndex} #inputDisplayName${formIndex}`).value = replies[i].displayName
-      this.container.querySelector(`#reply${formIndex} #inputDisplayName${formIndex}`).value = replies[i].displayName
-      this.container.querySelector(`#reply${formIndex} #inputDisplayName${formIndex}`).value = replies[i].displayName
-
-
-    }
-    for (i = 2; i < replies.length; i++) {
-
+  loadReplies(replies) {
+    if (replies !== null && replies !== undefined) {
+      for (let i = 2; i < replies.length; i++) {
+        let formIndex = i + 1;
+        this.addReply(false)
+        document.querySelector(`#inputDisplayName${formIndex}`).value = replies[i].displayName
+        document.querySelector(`#inputUserName${formIndex}`).value = replies[i].userName
+        document.querySelector(`#inputDateTime${formIndex}`).value = replies[i].dateTime
+        document.querySelector(`#inputBody${formIndex}`).value = replies[i].body
+        document.querySelector(`#inputVerified${formIndex}`).value = replies[i].verified
+        document.querySelector(`#inputRetweets${formIndex}`).value = replies[i].retweets
+        document.querySelector(`#inputQuoteTweets${formIndex}`).value = replies[i].quoteTweets
+        document.querySelector(`#inputLikes${formIndex}`).value = replies[i].likes
+        document.querySelector(`#inputIndex${formIndex}`).value = replies[i].index
+        document.querySelector(`#inputVerified${formIndex}`).setAttribute("checked", "")
+      }
     }
   }
 
-  addReply() {
+  addReply(changeForm = true) {
     if (this.replyCount < 8) {
       let dbIndex = this.replyCount
       this.replyCount++
@@ -76,14 +64,20 @@ class ReplyPaginationController {
       // Creates new page button
       let paginationButton = this.pageButtonTemplate.content.cloneNode(true).firstElementChild
       this.pageButtons.appendChild(paginationButton)
-      document.querySelector("#pageList .active").classList.remove("active")
       document.getElementById("tpage").innerText = `${this.replyCount}`
-      document.getElementById("tpage").classList.add("active")
       document.getElementById("tpage").id = `page${this.replyCount}`
-      // Shows correct form
-      let shownForm = document.querySelector("#replyForms .shown")
-      shownForm.classList.add("visually-hidden")
-      shownForm.classList.remove("shown")
+      if (changeForm) {
+        // Select correct page button
+        document.querySelector("#pageList .active").classList.remove("active")
+        document.getElementById(`page${this.replyCount}`).classList.add("active")
+        // Shows correct form
+        let shownForm = document.querySelector("#replyForms .shown")
+        shownForm.classList.add("visually-hidden")
+        shownForm.classList.remove("shown")
+        let formToShow = document.querySelector(`#replyForms #reply${this.replyCount}`)
+        formToShow.classList.add("shown")
+        formToShow.classList.remove("visually-hidden")
+      }
       // Updates selected form index to be the reply count
       this.selectedForm = this.replyCount
     }

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TwitterFaker.Models;
 using TwitterFaker.Services;
@@ -24,9 +27,16 @@ namespace TwitterFaker.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IdentityUser user = await _userManager.GetUserAsync(User);
+            List<ReplyChain> replyChains = await _twitterFakerContext.ReplyChains.Where(rc => rc.User.Id == user.Id).ToListAsync();
+            foreach (ReplyChain replyChain in replyChains)
+            {
+                List<Reply> replies = await _twitterFakerContext.Replys.Where(r => r.ReplyChain == replyChain).ToListAsync();
+                replyChain.replies = replies;
+            }
+            return View(replyChains);
         }
 
         public IActionResult Add()
@@ -68,10 +78,29 @@ namespace TwitterFaker.Controllers
             return RedirectToAction("Index");   
         }
 
-
-        public IActionResult Update()
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View("Index");
+            ViewBag.Action = "Update";
+            ReplyChain replyChain = _twitterFakerContext.ReplyChains.Where(rc => rc.ReplyChainId == id).First();
+            List<Reply> replies = await _twitterFakerContext.Replys.Where(r => r.ReplyChain == replyChain).ToListAsync();
+            replyChain.replies = replies;
+            return View("Edit", replyChain);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            ReplyChain replyChain = _twitterFakerContext.ReplyChains.Where(rc => rc.ReplyChainId == id).First();
+            try
+            {
+                _twitterFakerContext.ReplyChains.Remove(replyChain);
+                _twitterFakerContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }
