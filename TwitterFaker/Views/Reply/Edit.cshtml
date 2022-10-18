@@ -1,0 +1,267 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@model ReplyChain
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Replies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IdentityUser user = await UserManager.GetUserAsync(User);
+
+}
+
+<h1>Reply Chain</h1>
+<script src="~/js/previews/fakerShared.js"></script>
+<script src="~/js/previews/BlockSuspend.js"></script>
+<link href="~/css/preivews/global.css" rel="stylesheet" type="text/css" />
+<link href="~/css/preivews/block.css" rel="stylesheet" type="text/css" />
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <form enctype="multipart/form-data" asp-action="Edit" method="post" asp-controller="Reply">
+                <div class="form-row col-sm">
+                    <div class="container p-3 my-3 border rounded" id="replyForms">
+                        <div id="reply1" class="shown">
+                            <div class="form-group">
+                                <label for="inputDisplayName">Display Name</label>
+                                <input type="text" class="form-control" id="inputDisplayName1" placeholder="Display Name" asp-for="replies[0].DisplayName">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputUserName">Username</label>
+                                <input type="text" class="form-control" id="inputUserName1" placeholder="Username" asp-for="replies[0].UserName">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputDateTime">Date and Time</label>
+                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime1" asp-for="replies[0].DateTime">
+                            </div>
+                            <div class="container">
+                                <div class="topBreakDiv row">
+                                    <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp1" name="profilePicture1"/>
+                                    <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn1">X</button>
+                                    <img class="hide" id="pfpPlaceHolder" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputBody">Body</label>
+                                <textarea class="form-control" rows="3" cols="83" id="inputBody1" asp-for="replies[0].Body"></textarea>
+                            </div>
+                            <div class="form-check form-switch topBreakDiv">
+                                <input type="checkbox" class="form-check-input" id="inputVerified1" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" asp-for="replies[0].Verified"/>
+                                <label for="inputVerified" class="form-check-label">Verified</label>
+                            </div>
+                            <div class="container topBreakDiv">
+                                <div class="row">
+                                    <div class="form-group col-md" style="padding-left:0 !important">
+                                        <label for="inputRetweets1">Retweets</label>
+                                        <input type="number" class="form-control" id="inputRetweets" value="0" min="0" placeholder="0" asp-for="replies[0].Retweets">
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label for="inputQuoteTweets1">Quote Tweets</label>
+                                        <input type="number" class="form-control" id="inputQuoteTweets" value="0" min="0" placeholder="0" asp-for="replies[0].QuoteTweets"/>
+                                    </div>
+                                    <div class="form-group col-md" style="padding-right:0 !important">
+                                        <label for="inputLikes1">Likes</label>
+                                        <input type="number" class="form-control" id="inputLikes" value="0" min="0" placeholder="0" asp-for="replies[0].Likes">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="inputIndex1" asp-for="replies[0].Index" value="0"/>
+                        </div>
+                        <div id="reply2" class="visually-hidden">
+                            <div class="form-group">
+                                <label for="inputDisplayName">Display Name</label>
+                                <input type="text" class="form-control" id="inputDisplayName2" placeholder="Display Name" asp-for="replies[1].DisplayName">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputUserName">Username</label>
+                                <input type="text" class="form-control" id="inputUserName2" placeholder="Username" asp-for="replies[1].UserName">
+                            </div>
+                            <div class="form-group topBreakDiv">
+                                <label for="inputDateTime">Date and Time</label>
+                                <input type="datetime-local" class="form-control" style="width: fit-content;" id="inputDateTime2" asp-for="replies[1].DateTime">
+                            </div>
+                            <div class="container">
+                                <div class="topBreakDiv row">
+                                    <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                                    <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="inputPfp2" name="profilePicture2"/>
+                                    <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn2">X</button>
+                                    <img class="hide" id="pfpPlaceHolder" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputBody">Body</label>
+                                <textarea class="form-control" rows="3" cols="83" id="inputBody2" asp-for="replies[1].Body"></textarea>
+                            </div>
+                            <div class="form-check form-switch topBreakDiv">
+                                <input type="checkbox" class="form-check-input" id="inputVerified2" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" asp-for="replies[1].Verified" />
+                                <label for="inputVerified" class="form-check-label">Verified</label>
+                            </div>
+                            <div class="container topBreakDiv">
+                                <div class="row">
+                                    <div class="form-group col-md" style="padding-left:0 !important">
+                                        <label for="inputRetweets">Retweets</label>
+                                        <input type="number" class="form-control" id="inputRetweets2" value="0" min="0" placeholder="0" asp-for="replies[1].Retweets">
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label for="inputQuoteTweets">Quote Tweets</label>
+                                        <input type="number" class="form-control" id="inputQuoteTweets2" value="0" min="0" placeholder="0" asp-for="replies[1].QuoteTweets" />
+                                    </div>
+                                    <div class="form-group col-md" style="padding-right:0 !important">
+                                        <label for="inputLikes">Likes</label>
+                                        <input type="number" class="form-control" id="inputLikes2" value="0" min="0" placeholder="0" asp-for="replies[1].Likes">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="inputIndex2" asp-for="replies[1].Index" value="1"/>
+                        </div>         
+                    </div>
+                    <!-- Page Controls-->
+
+                    <div class="mt-3">
+                        <nav aria-label="Reply Pagination">
+                            <ul class="pagination mb-3" id="pageList" style="width: fit-content;">
+                                <li class="page-item"><a class="page-link active" href="#" id="page1">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#" id="page2">2</a></li>  
+                            </ul>
+                            <div class="container row">
+                                <a class="btn btn-primary col-md-3 me-3" id="addReply">Add Reply</a>
+                                <a class="btn btn-danger col-md-3" id="deleteSelectedReply">Delete Reply</a>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!-- Modifiers for all replies-->
+                    <div class="container topBreakDiv" style="padding-left:0px;">
+                        <div class="row">
+                            <div class="col-md-4" id="themeRadio">
+                                <span>Theme</span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="themeRadios" id="defaultTheme" value="0">
+                                    <label class="form-check-label" for="defaultTheme">Default</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="themeRadios" id="dimTheme" value="1">
+                                    <label class="form-check-label" for="dimTheme">Dim</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="themeRadios" id="darkTheme" value="2">
+                                    <label class="form-check-label" for="darkTheme">Dark</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="fontRadio">
+                                <span>Font</span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fontRadios" id="defaultFont" value="0">
+                                    <label class="form-check-label" for="defaultFont">Default</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fontRadios" id="interFont" value="1">
+                                    <label class="form-check-label" for="interFont">Inter</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2">
+                                    <label class="form-check-label" for="chirpFont">Chirp</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="hidden" asp-for="ReplyChainId" value="@Model.ReplyChainId"/>
+                <button type="submit" class="btn btn-primary submission">@ViewBag.Action</button>
+                <a asp-controller="Block" asp-action="Index" class="btn btn-secondary submission">Cancel</a>
+                <button class="btn btn-light submission" type="button" id="previewBtn">Preview</button>
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </form>
+        </div>
+        <div id="preview" class="col-sm">
+        </div>
+    </div>
+</div>
+<script src="~/js/ReplyChainManager.js"></script>
+<script>
+    window.onload = () => {
+      let container = document.querySelector("#replyForms")
+      let template = document.querySelector("#replyFormTemplate")
+      let addButton = document.querySelector("#addReply")
+      let deleteButton = document.querySelector("#deleteSelectedReply")
+      let pageButtons = document.querySelector("#pageList")
+      let pageButtonTemplate = document.querySelector("#pageButtonTemplate")
+      document.querySelector("#defaultTheme").setAttribute("checked", "")
+      document.querySelector("#defaultFont").setAttribute("checked", "")
+
+      let replies = @Html.Raw(Json.Serialize(Model.replies))
+
+      const paginationController = new ReplyPaginationController(container, template, pageButtonTemplate, addButton, deleteButton, pageButtons)
+      addButton.addEventListener("click", () => {paginationController.addReply()})
+      deleteButton.addEventListener("click", () => {paginationController.deleteReply()})
+      document.querySelector("#replyForms").addEventListener("click", (e) => {
+        if(e.target.id.includes("fileClearBtn") ) {
+          let formIndex = e.target.id.charAt(e.target.id.length - 1)
+          document.querySelector(`#inputPfp${formIndex}`).value = null
+        }
+        
+      })
+      document.querySelector("#pageList").addEventListener("click", (e) => {paginationController.selectReply(e.target.textContent)})
+      paginationController.loadReplies(replies)
+    }
+</script>
+
+<template id="replyFormTemplate">
+    <div id="treply" class="visually-hidden">
+        <div class="form-group">
+            <label for="inputDisplayName">Display Name</label>
+            <input type="text" class="form-control" id="tinputDisplayName" placeholder="Display Name">
+        </div>
+        <div class="form-group topBreakDiv">
+            <label for="inputUserName">Username</label>
+            <input type="text" class="form-control" id="tinputUserName" placeholder="Username">
+        </div>
+        <div class="form-group topBreakDiv">
+            <label for="inputDateTime">Date and Time</label>
+            <input type="datetime-local" class="form-control" style="width: fit-content;" id="tinputDateTime">
+        </div>
+        <div class="container">
+            <div class="topBreakDiv row">
+                <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
+                <input type="file" class="form-control col-sm file-input-clear" accept="image/x-png,image/gif,image/jpeg" id="tinputPfp" />
+                <button type="button" class="btn col-sm-1 input-clear-btn" id="tfileClearBtn">X</button>
+                <img class="hide" id="pfpPlaceHolder" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputBody">Body</label>
+            <textarea class="form-control" rows="3" cols="83" id="tinputBody"></textarea>
+        </div>
+        <div class="form-check form-switch topBreakDiv">
+            <input type="checkbox" class="form-check-input" id="tinputVerified" onload="this.checked = this.value=='true';" onclick="$(this).val(this.checked)" />
+            <label for="inputVerified" class="form-check-label">Verified</label>
+        </div>
+        <div class="container topBreakDiv">
+            <div class="row">
+                <div class="form-group col-md" style="padding-left:0 !important">
+                    <label for="inputRetweets">Retweets</label>
+                    <input type="number" class="form-control" id="tinputRetweets" value="0" min="0" placeholder="0">
+                </div>
+                <div class="form-group col-md">
+                    <label for="inputQuoteTweets">Quote Tweets</label>
+                    <input type="number" class="form-control" id="tinputQuoteTweets" value="0" min="0" placeholder="0" />
+                </div>
+                <div class="form-group col-md" style="padding-right:0 !important">
+                    <label for="inputLikes">Likes</label>
+                    <input type="number" class="form-control" id="tinputLikes" value="0" min="0" placeholder="0">
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="tinputIndex"/>
+    </div>
+</template>
+
+<template id="pageButtonTemplate">
+    <li class="page-item"><a class="page-link" href="#" id="tpage"></a></li>
+</template>

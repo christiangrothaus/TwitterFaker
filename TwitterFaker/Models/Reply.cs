@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace TwitterFaker.Models
 {
@@ -11,6 +12,7 @@ namespace TwitterFaker.Models
         [Key]
         public int ReplyId { get; set; }
 
+        [JsonIgnore]
         public ReplyChain ReplyChain { get; set; }
 
         [Required(ErrorMessage = "Please enter a username.")]
@@ -40,5 +42,7 @@ namespace TwitterFaker.Models
         public int Likes { get; set; }
 
         public bool Verified { get; set; }
+
+        public int Index { get; set; }
     }
 }

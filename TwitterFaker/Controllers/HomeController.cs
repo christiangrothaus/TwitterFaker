@@ -38,7 +38,7 @@ namespace TwitterFaker.Controllers
 
         public IActionResult Replies()
         {
-            return View();
+            return RedirectToAction("Index", "Reply");
         }
 
         public IActionResult Blocks()
