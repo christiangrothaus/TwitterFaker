@@ -33,7 +33,7 @@
                     <div class="container">
                         <div class="topBreakDiv row">
                             <label for="inputPfp" style="padding-left: 0 !important;">Profile Picture</label>
-                            <input name="profilePicture" type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
+                            <input name="inputPfp" type="file" class="form-control col-sm file-input-clear" id="inputPfp"/>
                             <button type="button" class="btn col-sm-1 input-clear-btn" id="fileClearBtn">X</button>
                            <!-- <img class="hide" id="pfpPlaceHolder"/>-->
                         </div>
@@ -50,16 +50,8 @@
                     <div class="container topBreakDiv">
                         <div class="row">
                             <label for="inputImage" style="padding-left: 0 !important;">Image</label>
-                            <input name="picture" type="file" class="form-control col-sm file-input-clear" id="inputImage"/>
+                            <input name="inputImage" type="file" class="form-control col-sm file-input-clear" id="inputImage"/>
                             <button type="button" class="btn col-sm-1 input-clear-btn" id="imageClearBtn">X</button>
-                         <!--  @@if (@@Model.ProfilePicture != null && @@Model.ProfilePicture.Length > 0)
-                            {
-                                <img class="hide" id="imagePlaceHolder" src="@@Model.ProfilePicture"/>
-                            }
-                            else
-                            {
-                                <img class="hide" id="imagePlaceHolder"/>
-                            }-->
                         </div>
                     </div>
                     <div class="form-group topBreakDiv">
@@ -78,7 +70,7 @@
                     </div>
                     <div class="container topBreakDiv">
                         <div class="row">
-                            <div class="form-group col-md" style="padding-left:0 !important">
+                            <div class="form-group col-md" style="padding-left:0 !important" onclick="updateHiddens()">
                                 <label for="inputRetweets">Retweets</label>
                                 <input type="number" class="form-control" id="inputRetweets" min="0" placeholder="0" asp-for="Retweets">
                             </div>
@@ -97,21 +89,21 @@
                             <div class="col-md" id="themeRadio">
                                 <span>Theme</span>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="themeRadios" id="defaultTheme" value="0">
+                                  <input class="form-check-input" type="radio" name="themeRadios" id="defaultTheme" value="0" onchange="updateHiddens()">
                                   <label class="form-check-label" for="defaultTheme">
                                     Default
                                   </label>
                                 </div>
 
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="themeRadios" id="dimTheme" value="1">
+                                  <input class="form-check-input" type="radio" name="themeRadios" id="dimTheme" value="1" onchange="updateHiddens()">
                                   <label class="form-check-label" for="dimTheme">
                                     Dim
                                   </label>
                                 </div>
 
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="themeRadios" id="darkTheme" value="2">
+                                  <input class="form-check-input" type="radio" name="themeRadios" id="darkTheme" value="2" onchange="updateHiddens()">
                                   <label class="form-check-label" for="darkTheme">
                                     Dark
                                   </label>
@@ -120,21 +112,21 @@
                              <div class="col-md" id="fontRadio">
                                 <span>Font</span>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="fontRadios" id="defaultFont" value="0">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="defaultFont" value="0" onchange="updateHiddens()">
                                   <label class="form-check-label" for="defaultFont">
                                     Default
                                   </label>
                                 </div>
 
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="fontRadios" id="interFont" value="1">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="interFont" value="1" onchange="updateHiddens()">
                                   <label class="form-check-label" for="interFont">
                                     Inter
                                   </label>
                                 </div>
 
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2" asp-for="Font">
+                                  <input class="form-check-input" type="radio" name="fontRadios" id="chirpFont" value="2" onchange="updateHiddens()">
                                   <label class="form-check-label" for="chirpFont">
                                     Chirp
                                   </label>
@@ -143,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary submission">@ViewBag.Action</button>
+                <button type="submit" onclick="preSubmit()" class="btn btn-primary submission">@ViewBag.Action</button>
                 <button class="btn btn-secondary submission" type="button" id="previewBtn">Preview</button>
                 <input hidden id="themeAsp" asp-for="Theme"/>
                 <input hidden id="fontAsp" asp-for="Font"/>
@@ -158,13 +150,20 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
             </form>
         </div>
-        <div class="col-sm" id="preview">
+        <div class="col-sm" id="preview" style="max-width:596pxs">
                 
             </div>
     </div>
 </div>
 <script>
-
+function preSubmit(){
+    [...document.querySelectorAll("input[placeholder='0']")].forEach(e => e.value = e.value != "" ? e.value : 0);
+    let dt = document.getElementById("inputDateTime");
+    if (dt.value == "") {
+        let d = new Date();
+        dt.value = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -5);
+    }
+}
 function aspValue(name){
     return document.getElementById(name+"Asp").value;
 }
@@ -177,6 +176,8 @@ let Picture;
 let ProfilePicture;
 window.onload = function() {
     
+
+
     Picture = document.getElementById("PictureAsp");
     Picture.value = Picture.value;
     ProfilePicture = document.getElementById("ProfilePicture");
@@ -207,6 +208,7 @@ window.onload = function() {
 
     document.getElementById("fontRadio").children[parseInt(aspValue("font"))+1].querySelector("input").checked = true;    
     document.getElementById("themeRadio").children[parseInt(aspValue("theme"))+1].querySelector("input").checked = true;
+    
     
     //consts
     document.getElementById("preview").appendChild(tweet.container);

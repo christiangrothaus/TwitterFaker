@@ -101,9 +101,9 @@ namespace TwitterFaker.Controllers
 
             //ModelState.Clear();
 
-            var block = GetTweetByID(id);
+            var tweet = GetTweetByID(id);
             //Console.WriteLine("edit isblock: " + block.IsBlock);
-            return View("Edit", block);
+            return View("Edit", tweet);
         }
 
         // POST: TweetController/Edit/5

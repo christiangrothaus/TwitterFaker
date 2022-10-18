@@ -31,7 +31,7 @@
             date += `, ${dt.getUTCFullYear()}`;
         }
         e.dateElement.innerHTML = date;
-        console.log(this.timeElement);
+        //console.log(this.timeElement);
         //time
         if (e.timeElement != null) {
             e.timeElement.innerHTML = dt.toLocaleTimeString().replace(/:\d+ /g, " ");
