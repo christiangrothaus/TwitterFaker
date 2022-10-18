@@ -31,7 +31,7 @@
             date += `, ${dt.getUTCFullYear()}`;
         }
         e.dateElement.innerHTML = date;
-        console.log(this.timeElement);
+        //console.log(this.timeElement);
         //time
         if (e.timeElement != null) {
             e.timeElement.innerHTML = dt.toLocaleTimeString().replace(/:\d+ /g, " ");
@@ -57,7 +57,7 @@
             }
         }
         if (this.#hideButton) {
-            e.statsElements[0].parentElement.parentElement.style.display = (this.#stats.find(e => e > 0) == undefined) ? "none" : "";
+            e.statsElements[0].parentElement.style.display = (this.#stats.find(e => e > 0) == undefined) ? "none" : "";
         }
        
     }

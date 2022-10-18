@@ -66,11 +66,11 @@ namespace TwitterFaker.Controllers
             }
             else
             {
-                if(profilePicture != null)
+                if (profilePicture != null)
                 {
                     tweet.ProfilePicture = IFormFileToBase64(profilePicture);
                 }
-                if(picture != null)
+                if (picture != null)
                 {
                     tweet.Picture = IFormFileToBase64(picture);
                 }
