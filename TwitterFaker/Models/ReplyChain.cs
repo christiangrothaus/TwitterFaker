@@ -13,7 +13,7 @@ namespace TwitterFaker.Models
         //Will be obtained from the signed in user 
         public IdentityUser User { get; set; }
 
-        public List<Reply> replies { get; set; }
+        public List<Reply> Replies { get; set; }
 
         public int Theme { get; set; }
 

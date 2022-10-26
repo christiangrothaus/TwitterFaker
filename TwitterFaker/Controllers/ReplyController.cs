@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -34,15 +35,16 @@ namespace TwitterFaker.Controllers
             foreach (ReplyChain replyChain in replyChains)
             {
                 List<Reply> replies = await _twitterFakerContext.Replys.Where(r => r.ReplyChain == replyChain).ToListAsync();
-                replyChain.replies = replies;
+                replyChain.Replies = replies;
             }
             return View(replyChains);
         }
 
         public IActionResult Add()
         {
+            List<Reply> replies = new List<Reply>() { new Reply { Verified = false }, new Reply { Verified = false } };
             ViewBag.Action = "Create";
-            return View("Edit", new ReplyChain());
+            return View("Edit", new ReplyChain { Replies = replies});
         }
 
         [HttpPost]
@@ -54,23 +56,37 @@ namespace TwitterFaker.Controllers
             }
             else
             {
+                replyChain.Theme = themeRadios;
+                replyChain.Font = fontRadios;
+                replyChain.User = user;
+
                 foreach (FormFile picture in formCollection.Files)
                 {
                     string pictureName = picture.Name;
                     int index = int.Parse(pictureName[^1].ToString()) - 1;
-                    replyChain.replies[index].ProfilePicture = PictureConverter.IFormFileToBase64(picture);
+                    replyChain.Replies[index].ProfilePicture = PictureConverter.IFormFileToBase64(picture);
                 }
 
                 if (replyChain.ReplyChainId == 0)
                 {
-                    replyChain.Theme = themeRadios;
-                    replyChain.Font = fontRadios;
-                    replyChain.User = user;
                     _twitterFakerContext.ReplyChains.Add(replyChain);
                     _twitterFakerContext.SaveChanges();
                 }
                 else
                 {
+                    List<Reply> repliesToRemove = new List<Reply>();
+                    foreach (Reply reply in replyChain.Replies)
+                    {
+                        if (reply.DisplayName == null) {
+                            repliesToRemove.Add(reply);
+                        }
+                    }
+                    foreach (Reply reply in repliesToRemove)
+                    {
+                        replyChain.Replies.Remove(reply);
+                    }
+                    List<Reply> repliesToDelete = _twitterFakerContext.Replys.Where(r => !replyChain.Replies.Contains(r) && r.ReplyChain.ReplyChainId == replyChain.ReplyChainId).ToList();
+                    _twitterFakerContext.Replys.RemoveRange(repliesToDelete);
                     _twitterFakerContext.ReplyChains.Update(replyChain);
                     _twitterFakerContext.SaveChanges();
                 }
@@ -84,7 +100,7 @@ namespace TwitterFaker.Controllers
             ViewBag.Action = "Update";
             ReplyChain replyChain = _twitterFakerContext.ReplyChains.Where(rc => rc.ReplyChainId == id).First();
             List<Reply> replies = await _twitterFakerContext.Replys.Where(r => r.ReplyChain == replyChain).ToListAsync();
-            replyChain.replies = replies;
+            replyChain.Replies = replies;
             return View("Edit", replyChain);
         }
 

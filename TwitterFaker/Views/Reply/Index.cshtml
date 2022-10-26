@@ -10,8 +10,8 @@
     themes.Add(1, "Dim");
     themes.Add(2, "Dark");
     fonts.Add(0, "ignore");
-    fonts.Add(1, "Inter");
-    fonts.Add(2, "Chirp");
+    fonts.Add(1, "interFont");
+    fonts.Add(2, "chirp");
 }
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -38,7 +38,7 @@
         @foreach (var replyChain in Model)
         {
             <div class="replyChain m-2 @themes.Where(t => t.Key == replyChain.Theme).First().Value @fonts.Where(f => f.Key == replyChain.Font).First().Value">
-            @foreach (var reply in replyChain.replies)
+            @foreach (var reply in replyChain.Replies)
             {
                 <div class="replyContainer">
                     <div class="tweetInnerContainer">

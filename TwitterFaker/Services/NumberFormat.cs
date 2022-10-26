@@ -11,7 +11,7 @@ namespace TwitterFaker.Services
                 return (num / 1000000f).ToString("#,0M");
             }
 
-            if (num >= 10000000)
+            if (num >= 1000000)
             { 
                 return (num / 1000000f).ToString("0.#") + "M";
             }
