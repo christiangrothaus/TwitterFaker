@@ -69,11 +69,21 @@ namespace TwitterFaker.Controllers
 
                 if (replyChain.ReplyChainId == 0)
                 {
+                    try 
+                    {
+
                     _twitterFakerContext.ReplyChains.Add(replyChain);
                     _twitterFakerContext.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.Action = "Create";
+                        return View(replyChain);
+                    }
                 }
                 else
                 {
+                    try { 
                     List<Reply> repliesToRemove = new List<Reply>();
                     foreach (Reply reply in replyChain.Replies)
                     {
@@ -89,6 +99,12 @@ namespace TwitterFaker.Controllers
                     _twitterFakerContext.Replys.RemoveRange(repliesToDelete);
                     _twitterFakerContext.ReplyChains.Update(replyChain);
                     _twitterFakerContext.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.Action = "Update";
+                        return View(replyChain);
+                    }
                 }
             }
             return RedirectToAction("Index");   
