@@ -30,12 +30,20 @@ namespace TwitterFaker.Controllers
 
         public async Task<IActionResult> Index()
         {
+            List<ReplyChain> replyChains;
             IdentityUser user = await _userManager.GetUserAsync(User);
-            List<ReplyChain> replyChains = await _twitterFakerContext.ReplyChains.Where(rc => rc.User.Id == user.Id).ToListAsync();
-            foreach (ReplyChain replyChain in replyChains)
+            try 
+            { 
+                replyChains = await _twitterFakerContext.ReplyChains.Where(rc => rc.User.Id == user.Id).ToListAsync();
+                foreach (ReplyChain replyChain in replyChains)
+                {
+                    List<Reply> replies = await _twitterFakerContext.Replys.Where(r => r.ReplyChain == replyChain).ToListAsync();
+                    replyChain.Replies = replies;
+                }
+            }
+            catch (Exception e)
             {
-                List<Reply> replies = await _twitterFakerContext.Replys.Where(r => r.ReplyChain == replyChain).ToListAsync();
-                replyChain.Replies = replies;
+                replyChains = new List<ReplyChain>();
             }
             return View(replyChains);
         }
@@ -53,6 +61,7 @@ namespace TwitterFaker.Controllers
             IdentityUser user = await _userManager.GetUserAsync(User);
             if (user == null) {
                 ModelState.AddModelError("NoUser", "Sign in to save the reply chain.");
+                return View(replyChain);
             }
             else
             {
