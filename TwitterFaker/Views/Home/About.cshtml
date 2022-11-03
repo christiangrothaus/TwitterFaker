@@ -1,1 +1,126 @@
-﻿
+﻿@{
+    ViewData["About"] = "About Page";
+}
+<!--checking commit-->
+<div class=" about">
+    <h1 style="text-align:center" class="display-4">About Us</h1>
+    <div class="container">
+        <img src="~/images/Twitter.png" width="312" height="221">
+    </div>
+    <div class="text">
+        <p> TwitterFaker is what's happening and what people are talking about right now!</p>
+    </div>
+</div>
+<h2 style="text-align:center">Our Team</h2>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="~/images/defaultProfilePic.png" alt="f" width="450"
+                 height="300">
+            <div class="container">
+                <h5>Felix Odogwu</h5>
+                <p>Some text that describes.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="~/images/defaultProfilePic.png" alt="fillr" width="450"
+                 height="300">
+            <div class="container">
+                <h5>Nick Bell</h5>
+                <p>Some text that describes.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="~/images/defaultProfilePic.png" alt="filler" width="450"
+                 height="300">
+            <div class="container">
+                <h5>Christian Grothaus</h5>
+                <p>Some text that describes.</p>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="~/images/defaultProfilePic.png" alt="filler" width="450"
+                 height="300">
+            <div class="container">
+                <h5>Robert Champion</h5>
+                <p>Some text that describes.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+<style>
+        .text {
+            font-size: 50px;
+            padding-left: 20px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .image {
+            flex-basis: 40%;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+        }
+
+        .about-section {
+            padding: 50px;
+            text-align: center;
+            background-color: #474e5d;
+            color: white;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+            .container::after, .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+    @@media screen and (max-width: 650px) {
+        .column {
+            width: 100%;
+            display: block;
+        }
+    }
+</style>
