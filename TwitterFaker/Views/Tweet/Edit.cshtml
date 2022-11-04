@@ -140,14 +140,11 @@
                 <input hidden id="themeAsp" asp-for="Theme"/>
                 <input hidden id="fontAsp" asp-for="Font"/>
                 
-                @@Html.HiddenFor(x=>x.Picture)
-                <!--<input hidden id="Picture" asp-for="Picture"/>--->
-                
                 @Html.HiddenFor(x=>x.ProfilePicture)
-                <!--<input hidden id="pfpAsp" asp-for="ProfilePicture"/>-->
                 <input hidden id="PictureAsp" asp-for="Picture"/>
                 <input hidden asp-for="TweetId" />
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <div style="color:red">@ViewBag.Message</div>
             </form>
         </div>
         <div class="col-sm" id="preview" style="max-width:596pxs">

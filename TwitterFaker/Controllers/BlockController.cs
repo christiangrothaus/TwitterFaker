@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace TwitterFaker.Controllers
 {
@@ -23,7 +24,9 @@ namespace TwitterFaker.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             //userManager.GetUserId(user.)
-            var blocks = context.Blocks.Where(z=>z.User.Id==user.Id).ToList();
+            var blocks = new List<Block>();
+            if(user!=null)
+                blocks = context.Blocks.Where(z=>z.User.Id==user.Id).ToList();
             return View(blocks);
         }
 
@@ -47,6 +50,13 @@ namespace TwitterFaker.Controllers
             if (ModelState.IsValid)
             {
                 block.User = await userManager.GetUserAsync(User);
+                if (block.User == null)
+                {
+                    var msg = "Must be signed in to save";
+                    ViewBag.Message = msg;
+                    ViewBag.Action = (block.BlockId == 0) ? "Add" : "Update";
+                    return View("Edit", block);
+                }
                 if (block.BlockId == 0)
                 {
                     //block.BlockId = 0;

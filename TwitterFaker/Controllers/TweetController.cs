@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TwitterFaker.Models;
@@ -23,7 +24,9 @@ namespace TwitterFaker.Controllers
         public async Task<ActionResult> Index()
         {
             var user = await userManager.GetUserAsync(User);
-            var tweets = context.Tweets.Where(z => z.User.Id == user.Id).ToList();
+            var tweets = new List<Tweet>();
+            if(user!=null)
+                tweets = context.Tweets.Where(z => z.User.Id == user.Id).ToList();
             return View(tweets);
         }
 
@@ -67,6 +70,13 @@ namespace TwitterFaker.Controllers
             if (ModelState.IsValid)
             {
                 tweet.User = await userManager.GetUserAsync(User);
+                if (tweet.User == null)
+                {
+                    var msg = "Must be signed in to save";
+                    ViewBag.Message = msg;
+                    ViewBag.Action = (tweet.TweetId == 0) ? "Add" : "Update";
+                    return View("Edit", tweet);
+                }
                 if (tweet.TweetId == 0)
                 {
                     context.Tweets.Add(tweet);
@@ -124,8 +134,10 @@ namespace TwitterFaker.Controllers
         // GET: TweetController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            
+            return View(GetTweetByID(id));
         }
+       
 
         // POST: TweetController/Delete/5
         [HttpPost]
@@ -134,6 +146,8 @@ namespace TwitterFaker.Controllers
         {
             try
             {
+                context.Tweets.Remove(GetTweetByID(id));
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
