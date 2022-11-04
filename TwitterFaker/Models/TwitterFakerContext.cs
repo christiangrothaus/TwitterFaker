@@ -36,12 +36,12 @@ namespace TwitterFaker.Models
             //Replies
             modelBuilder.Entity<Reply>()
                 .HasOne(r => r.ReplyChain)
-                .WithMany(c => c.replies)
+                .WithMany(c => c.Replies)
                 .IsRequired();
                 
             //ReplyChains
             modelBuilder.Entity<ReplyChain>()
-                .HasMany(r => r.replies)
+                .HasMany(r => r.Replies)
                 .WithOne(c => c.ReplyChain)
                 .OnDelete(DeleteBehavior.Cascade);
 
