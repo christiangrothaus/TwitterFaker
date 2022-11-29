@@ -79,8 +79,22 @@
             </div> 
         </div>
     </div>
+    <br style="margin-top:5px"/>
     <form asp-action="Delete" class="d">
         <button type="submit" class="btn btn-danger">Delete</button>
         <a asp-action="Index" asp-controller="Block" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+<script>
+
+
+window.onload = function() {
+     var themes = ["ignore", "Dim", "Dark"];
+    var fonts = ["ignore", "interFont", "chirp"];
+    [...document.querySelectorAll(".blockContainer")].forEach(e => {
+        e.classList.add(themes[parseInt(e.getAttribute("theme"))]);
+        e.classList.add(fonts[parseInt(e.getAttribute("font"))]);
+        }
+    );
+}
+</script>
